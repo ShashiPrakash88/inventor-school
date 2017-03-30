@@ -43,30 +43,7 @@ $meta_boxes[] = array(
     )
 )
 );
-$meta_boxes[] = array(
-    'id' => 'codes',
-    'title' => 'Codes ',
-    'pages' => array( 'post' ), // post type
-    'context' => 'side',
-    'priority' => 'low',
-    'show_names' => true, 
-    'fields' => array(
-    array(
-        'name' => 'Pincode',
-        'desc' => 'Pincode of the area',
-        'id' => 'pcode',
-        'type' => 'number',
-        'default' => ''
-    ),
-    array(
-        'name' => 'Schoolcode',
-        'desc' => 'School code',
-        'id' => 'sch_code',
-        'type' => 'number',
-        'default' => ''
-    )
-    )
-    );
+
 }
 add_action('add_meta_boxes', 'plib_add_box');
 ?>
