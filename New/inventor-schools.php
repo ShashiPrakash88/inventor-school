@@ -52,7 +52,8 @@ if ( ! class_exists( 'Inventor_Schools' ) && class_exists( 'Inventor' ) ) {
          * @access public
          * @return void
          */
-        public function includes() {
+        public function includes() 
+        {
             require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-schools-post-types.php';
             require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-schools-customizations.php';
             require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-schools-logic.php';
@@ -61,3 +62,4 @@ if ( ! class_exists( 'Inventor_Schools' ) && class_exists( 'Inventor' ) ) {
 
     new Inventor_Schools();
 }
+
