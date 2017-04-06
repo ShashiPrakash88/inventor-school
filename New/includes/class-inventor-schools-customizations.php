@@ -1,8 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+if ( ! defined( 'ABSPATH' ) ) {exit;}
 
 /**
  * Class Inventor_Schools_Customizations
@@ -11,25 +9,25 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Inventor_Schools/Classes/Customizations
  * @return void
  */
-class Inventor_Schools_Customizations {
-    /**
+class Inventor_Schools_Customizations 
+{
+    
+/**
      * Initialize customizations
      *
      * @access public
      * @return void
      */
-    public static function init() {
-        self::includes();
-    }
-
-    /**
+    public static function init() {self::includes();}
+/**
      * Include all customizations
      *
      * @access public
      * @return void
      */
-    public static function includes() {
-        require_once INVENTOR_SCHOOL_PREFIX . 'includes/customizations/class-inventor-schools-customizations-schools.php';
+    public static function includes() 
+    {
+    require_once '/home/dh_xvgggh/stg6.edugorilla.com/wp-content/plugins/New/includes/customizations/class-inventor-schools-customizations-schools.php';
     }
 }
 
