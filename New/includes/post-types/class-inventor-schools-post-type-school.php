@@ -150,16 +150,6 @@ class Inventor_Schools_Post_Type_School {
             ) );
         }
 
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'contract_type';
-        if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $details->add_field( array(
-                'name'              => __( 'Contract type', 'inventor-schools' ),
-                'id'                => $field_id,
-                'type'              => 'select',
-                'options'           => self::contract_options()
-            ) );
-        }
-
         // Attributes
 
         $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'attributes';
