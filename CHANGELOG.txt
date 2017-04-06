@@ -142,9 +142,4 @@ What's new:
 - WP filter inventor_metabox_title takes $post_type argument
 - WP filter inventor_metabox_description takes $post_type argument
 - endpoints for WordPress JSON REST API
-- inventor_metabox_field_enabled WP filter applied to property fields
-
-
-Version 1.3.0
-Release date: 2017-01-31
-- inventor_metabox_field_attributes WP filter applied to property fields
+- inventor_metabox_field_enabled WP filter applied for property fields
