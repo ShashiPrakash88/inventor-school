@@ -25,9 +25,8 @@ class Inventor_Schools_Customizations
      * @access public
      * @return void
      */
-    public static function includes() 
-    {
-    require_once '/home/dh_xvgggh/stg6.edugorilla.com/wp-content/plugins/New/includes/customizations/class-inventor-schools-customizations-schools.php';
+    public static function includes() {
+        require_once INVENTOR_SCHOOLS_DIR . 'includes/customizations/class-inventor-schools-customizations-schools.php';
     }
 }
 

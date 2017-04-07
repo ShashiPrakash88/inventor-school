@@ -61,4 +61,4 @@ if ( ! class_exists( 'Inventor_Schools' ) && class_exists( 'Inventor' ) ) {
     }
 
     new Inventor_Schools();
-}
+}?>

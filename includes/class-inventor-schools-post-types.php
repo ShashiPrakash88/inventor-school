@@ -22,10 +22,8 @@ class Inventor_Schools_Post_Types
      * @access public
      * @return void
      */
-    public static function includes() 
-    {
-        require_once '/home/dh_xvgggh/stg6.edugorilla.com/wp-content/plugins/New/includes/post/post-type-school.php';
+      public static function includes() {
+        require_once INVENTOR_SCHOOLS_DIR . 'includes/post/post-type-school.php';
     }
 }
 Inventor_Schools_Post_Types::init();
-
