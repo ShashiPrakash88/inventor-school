@@ -1,7 +1,9 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {exit;}
-
+    if ( ! defined( 'ABSPATH' ) ) 
+     {
+	  exit;
+     }
 /**
  * Class Inventor_Schools_Customizations
  *
@@ -9,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
  * @package Inventor_Schools/Classes/Customizations
  * @return void
  */
-class Inventor_Schools_Customizations 
-{
+    class Inventor_Schools_Customizations 
+    {
     
 /**
      * Initialize customizations
@@ -18,16 +20,20 @@ class Inventor_Schools_Customizations
      * @access public
      * @return void
      */
-    public static function init() {self::includes();}
+      public static function init() 
+	  {
+		 self::includes();
+	  }
 /**
      * Include all customizations
      *
      * @access public
      * @return void
      */
-    public static function includes() {
-        require_once INVENTOR_SCHOOLS_DIR . 'includes/customizations/class-inventor-schools-customizations-schools.php';
+      public static function includes()
+	  {
+         require_once INVENTOR_SCHOOLS_DIR . 'includes/customizations/class-inventor-schools-customizations-schools.php';
+      }
     }
-}
-
 Inventor_Schools_Customizations::init();
+?>

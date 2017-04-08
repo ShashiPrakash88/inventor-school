@@ -1,6 +1,9 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {exit;}
+    if ( ! defined( 'ABSPATH' ) ) 
+	{
+		exit;
+	}
 /**
  * Class Inventor_Schools_Post_Type_Schools
  *
@@ -8,55 +11,53 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
  * @package Inventor/Classes/Post_Types
  * @author Pragmatic Mates
  */
-class Inventor_Schools_Post_Type_Schools 
-{
-    /**
-     * Initialize custom post type
-     *
-     * @access public
-     * @return void
-     */
-    public static function init() 
-    {        
-        add_action( 'init', array( __CLASS__, 'definition' ), 11 );
-        add_action( 'cmb2_init', array( __CLASS__, 'fields' ) );
-        add_filter( 'inventor_shop_allowed_listing_post_types', array( __CLASS__, 'allowed_purchasing' ) );
-        add_filter( 'inventor_claims_allowed_listing_post_types', array( __CLASS__, 'allowed_claiming' ) );
-        add_filter( 'inventor_compare_metaboxes', function( $metaboxes ) {
-            return array_merge( $metaboxes, array( 'attributes' ) );
-        } );
-    }
-  /**
-     * Defines if post type can be purchased
-     *
-     * @access public
-     * @param array $post_types
-     * @return array
-     */
-    public static function allowed_purchasing( $post_types ) 
+    class Inventor_Schools_Post_Type_Schools 
     {
-        $post_types[] = 'school';return $post_types;
+/**
+* Initialize custom post type
+*
+* @access public
+* @return void
+*/
+      public static function init() 
+       {        
+         add_action( 'init', array( __CLASS__, 'definition' ), 11 );
+         add_action( 'cmb2_init', array( __CLASS__, 'fields' ) );
+         add_filter( 'inventor_shop_allowed_listing_post_types', array( __CLASS__, 'allowed_purchasing' ) );
+         add_filter( 'inventor_claims_allowed_listing_post_types', array( __CLASS__, 'allowed_claiming' ) );
     }
-
-    /**
-     * Defines if post type can be claimed
-     *
-     * @access public
-     * @param array $post_types
-     * @return array
-     */
-    public static function allowed_claiming( $post_types )
-    {
-        $post_types[] = 'school';return $post_types;
-    }
-
-    /**
-     * Custom post type definition
-     *
-     * @access public
-     * @return void
-     */
-    public static function definition() {
+/**
+* Defines if post type can be purchased
+*
+* @access public
+* @param array $post_types
+* @return array
+*/
+      public static function allowed_purchasing( $post_types ) 
+       {
+        $post_types[] = 'school';
+		return $post_types;
+       }
+/**
+* Defines if post type can be claimed
+*
+* @access public
+* @param array $post_types
+* @return array
+*/
+      public static function allowed_claiming( $post_types )
+      {
+        $post_types[] = 'school';
+		return $post_types;
+      }
+/**
+* Custom post type definition
+*
+* @access public
+* @return void
+*/
+      public static function definition() 
+	  {
         $labels = array(
             'name'                  => __( 'Schools', 'inventor-schools' ),
             'singular_name'         => __( 'School', 'inventor-schools' ),
@@ -74,387 +75,157 @@ class Inventor_Schools_Post_Type_Schools
             'icon'                  => apply_filters( 'inventor_listing_type_icon', 'inventor-poi-single-house', 'school' )
         );
 
-        register_post_type( 'school',
-            array(
-                'labels'            => $labels,
-                'show_in_menu'	    => 'listings',
-                'supports'          => array( 'title', 'editor', 'thumbnail', 'comments', 'author' ),
-                'has_archive'       => true,
-                'rewrite'           => array( 'slug' => _x( 'schools', 'URL slug', 'inventor-schools' ) ),
-                'public'            => true,
-                'show_ui'           => true,
-                'show_in_rest'      => true,
-                'categories'        => array(),
-            )
-        );
-    }
-
-   
-    /**
-     * Defines custom fields
-     *
-     * @access public
-     * @return array
-     */
-    public static function fields() {
+        register_post_type( 'school', array(
+            'labels'            => $labels,
+            'show_in_menu'	    => 'listings',
+            'supports'          => array( 'title', 'editor', 'thumbnail', 'comments', 'author' ),
+            'has_archive'       => true,
+            'rewrite'           => array( 'slug' => _x( 'schools', 'URL slug', 'inventor-schools' ) ),
+            'public'            => true,
+            'show_ui'           => true,
+            'show_in_rest'      => true,
+            'categories'        => array(),
+        ));
+      }
+/**
+* Defines custom fields
+*
+* @access public
+* @return array
+*/
+      public static function fields()
+	  {
         $post_type = 'school';
-
-        if ( ! is_admin() ) {
+		if ( ! is_admin() ) 
+		{
             Inventor_Post_Types::add_metabox( $post_type, array( 'general' ) );
         }
-
-        // Details
-        $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'details';
-
-        $details = new_cmb2_box( array(
+// 1st Metabox -- Basic Details
+    $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Basic Details';
+    $details = new_cmb2_box( array(
             'id'            => $metabox_id,
-            'title'         => __( 'Details', 'inventor-schools' ),
+            'title'         => __( 'Basic Details', 'inventor-schools' ),
             'object_types'  => array( $post_type ),
             'context'       => 'normal',
             'priority'      => 'high',
             'show_in_rest'  => true,
         ) );
 
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'type';
+//1st field -- year	       
+    $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'year';
         if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
             $details->add_field( array(
-                'name'              => __( 'Schools type', 'inventor-schools' ),
-                'id'                => $field_id,
-                'type'              => 'taxonomy_select',
-                'taxonomy'          => 'school_types',
-            ) );
-        }
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'reference';
-        if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $details->add_field( array(
-                'name'              => __( 'Reference', 'inventor-schools' ),
-                'id'                => $field_id,
-                'type'              => 'text_small',
-            ) );
-        }
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'year_built';
-        if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $details->add_field( array(
-                'name'              => __( 'Year built', 'inventor-schools' ),
+                'name'              => __( 'Year of Establishment', 'inventor-schools' ),
                 'id'                => $field_id,
                 'type'              => 'text_small',
                 'attributes'        => array(
                     'type'      => 'number',
                     'pattern'   => '\d*',
-                    'min'       => 0
+                    'min'       => 1800,
+					'max'       => 2017
                 ),
             ) );
-        }
-
-        // Attributes
-
-        $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'attributes';
-
-        $attributes = new_cmb2_box( array(
-            'id'            => $metabox_id,
-            'title'         => __( 'Attributes', 'inventor-schools' ),
-            'object_types'  => array( 'school' ),
-            'context'       => 'normal',
-            'priority'      => 'high',
-            'show_in_rest'  => true,
-        ) );
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'rooms';
+		}
+//2nd field --  setting 
+        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'location';
         if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $attributes->add_field( array(
-                'name'              => __( 'Rooms', 'inventor-schools' ),
-                'id'                => $field_id,
-                'type'              => 'text_small',
-                'attributes' => array(
-                    'type'      => 'number',
-                    'pattern'   => '\d*',
-                    'min'       => 0
-                ),
-            ) );
+            $details->add_field( array(
+                'name'              => __( 'Location of the school', 'inventor-schools' ),
+                'description'       => __( 'Select the location rural/urban', 'inventor-schools' ),
+                 'id'                => $field_id,
+                'type'              => 'radio_inline',
+		        'show_option_none'  => false,
+		        'options'           => array (
+                     'custom' => __('Rural', 'cmb2'),
+                     'urban'     => __('Urban', 'cmb2')
+                                              )
+            ));
         }
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'beds';
+// 3rd field -- organisation		
+		$field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'gender';
         if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $attributes->add_field( array(
-                'name'              => __( 'Beds', 'inventor-schools' ),
+            $details->add_field( array(
+                'name'              => __( 'Gender', 'inventor-schools' ),
+                'description'       => __( 'Select the organisation of school', 'inventor-schools' ),
                 'id'                => $field_id,
-                'type'              => 'text_small',
-                'attributes' => array(
-                    'type'      => 'number',
-                    'pattern'   => '\d*',
-                    'min'       => 0
-                ),
-            ) );
+                'type'              => 'radio_inline',
+				'show_option_none'  => false,
+		        'options'           => array (
+                     'custom' => __('Only for Girls', 'cmb2'),
+                     'boys'     => __('Only for Boys', 'cmb2'),
+					 'coed'     => __('Co-education', 'cmb2'),
+                                              )
+		    ));
         }
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'baths';
+//4th field -- type 		
+		        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'type';
         if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $attributes->add_field( array(
-                'name'              => __( 'Baths', 'inventor-schools' ),
+            $details->add_field( array(
+                'name'              => __( 'School type', 'inventor-schools' ),
+				'description'       => __( 'Select the type of school', 'inventor-schools' ),
                 'id'                => $field_id,
-                'type'              => 'text_small',
-                'attributes' => array(
-                    'type'      => 'number',
-                    'pattern'   => '\d*',
-                    'min'       => 0
-                ),
-            ) );
+                'type'              => 'radio',
+				'show_option_none'  => false,
+		        'options'           => array (
+                     'nonr' => __('Not Residential', 'cmb2'),
+                     'ashram'   => __('Residential -> Ashram', 'cmb2'),
+					 'nonash'     => __('Residential -> Non-Ashram(Govt)', 'cmb2'),
+					 'kgbv'     => __('Residential -> KGBV', 'cmb2'),
+					 'model'     => __('Residential -> Model_school', 'cmb2'),
+					 'res'     => __('Residential -> no_type', 'cmb2'),
+					 'resna'     => __('Not Applicable', 'cmb2'),
+					 
+                                              )
+            ));
         }
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'garages';
+//5th field -- mngt
+		        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'mngt';
         if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $attributes->add_field( array(
-                'name'              => __( 'Garages', 'inventor-schools' ),
+            $details->add_field( array(
+                'name'              => __( 'School Management', 'inventor-schools' ),
+				'description'       => __( 'Select the school management', 'inventor-schools' ),
                 'id'                => $field_id,
-                'type'              => 'text_small',
-                'attributes' => array(
-                    'type'      => 'number',
-                    'pattern'   => '\d*',
-                    'min'       => 0
-                ),
-            ) );
+                 'type'              => 'radio',
+				'show_option_none'  => false,
+	            'options' => array(
+		                     'edu' => 'Dept. of Education',
+		                     'trib' => 'Tribal/Social Welfare Dept.',
+		                     'local' => 'Local body',
+							 'pvt' => 'Private Aided',
+		                     'unaided' => 'Private Unaided',
+		                     'center' => 'Central Government',
+							 'madarsa' => 'Madarsa Recognised',		                     
+		                     'no_madarsa' => 'Madarsa Unrecognised',
+		                     'unrecog' => 'Unrecognised',
+							'other' => 'Other',
+							   )
+            ));
         }
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'parking_lots';
+//6th field -- board 		
+		$field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'board';
         if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $attributes->add_field( array(
-                'name'              => __( 'Parking lots', 'inventor-schools' ),
+            $details->add_field( array(
+                'name'              => __( 'School Board', 'inventor-schools' ),
+			    'desc'              => 'Select the Board of the School',
                 'id'                => $field_id,
-                'type'              => 'text_small',
-                'attributes' => array(
-                    'type'      => 'number',
-                    'pattern'   => '\d*',
-                    'min'       => 0
-                ),
-            ) );
+                'type'              => 'select',
+			    'show_option_none' => false,
+	            'default'          => 'custom', 
+		        'options'           => array (
+				       'custom' => __( 'CBSE', 'cmb2' ),
+					   'icse'     => __('ICSE', 'cmb2'),
+					   'state'     => __('State', 'cmb2'),
+					   'inter'     => __('International', 'cmb2'),
+					   'none'     => __('Other', 'cmb2')
+                                              )
+            ));
         }
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'home_area';
-        if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $attributes->add_field( array(
-                'name'              => __( 'Home area', 'inventor-schools' ),
-                'id'                => $field_id,
-                'description'       => sprintf( __( 'In %s. (Enter value without unit)', 'inventor-schools' ), get_theme_mod( 'inventor_measurement_area_unit', 'sqft' ) ),
-                'type'              => 'text_small',
-                'attributes' => array(
-                    'type'      => 'number',
-                    'step'      => 'any',
-                    'min'       => 0,
-                    'pattern'   => '\d*(\.\d*)?',
-                ),
-            ) );
-        }
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'lot_area';
-        if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $attributes->add_field( array(
-                'name'              => __( 'Lot area', 'inventor-schools' ),
-                'id'                => $field_id,
-                'description'       => sprintf( __( 'In %s. (Enter value without unit)', 'inventor-schools' ), get_theme_mod( 'inventor_measurement_area_unit', 'sqft' ) ),
-                'type'              => 'text_small',
-                'attributes' => array(
-                    'type'      => 'number',
-                    'step'      => 'any',
-                    'min'       => 0,
-                    'pattern'   => '\d*(\.\d*)?',
-                ),
-            ) );
-        }
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'lot_dimensions';
-        if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $attributes->add_field( array(
-                'name'              => __( 'Lot dimensions', 'inventor-schools' ),
-                'id'                => $field_id,
-                'type'              => 'text',
-                'description'       => __( 'e.g. 20x30, 20x30x40, 20x30x40x50', 'inventor-schools' ),
-            ) );
-        }
-
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'amenities';
-        if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
-            $attributes->add_field( array(
-                'name'              => __( 'Amenities', 'inventor-schools' ),
-                'id'                => $field_id,
-                'type'              => 'taxonomy_multicheck_hierarchy',
-                'taxonomy'          => 'school_amenities',
-                'skip'              => true,
-            ) );
-        }
-
-        Inventor_Post_Types::add_metabox( 'school', array( 'banner', 'gallery', 'video', 'location', 'price', 'contact', 'flags', 'listing_category' ) );
-        Inventor_Post_Types::add_metabox( 'school', array( 'Inventor_Schools_Post_Type_Schools::valuation' ) );
-    }
-
-    /**
-     * Metabox for public facilities
-     *
-     * @access public
-     * @param $post_type
-     * @return array
-     */
-    public static function metabox_floor_plans( $post_type ) {
-        $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'floor_plans_box';
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'floor_plans';
-
-        $cmb = new_cmb2_box( array(
-            'id'            => $metabox_id,
-            'title'			=> apply_filters( 'inventor_metabox_title', __( 'Floor plans', 'inventor-schools' ), $metabox_id, $post_type ),
-            'description'   => apply_filters( 'inventor_metabox_description', __( 'Upload some floor plans images.', 'inventor-schools' ), $metabox_id, $post_type ),
-            'object_types'  => array( $post_type ),
-            'context'       => 'normal',
-            'priority'      => 'high',
-            'skip'          => true,
-            'show_in_rest'  => true,
-        ) );
-
-        $field_name = __( 'Floor plans', 'inventor-schools' );
-
-        $cmb->add_field( array(
-            'id'            => $field_id,
-            'type'          => 'file_list',
-            'name'          => apply_filters( 'inventor_metabox_field_name', $field_name, $metabox_id, $field_id, $post_type ),
-            'description'   => apply_filters( 'inventor_metabox_field_description', null, $metabox_id, $field_id, $post_type ),
-            'default'       => apply_filters( 'inventor_metabox_field_default', null, $metabox_id, $field_id, $post_type ),
-            'attributes' 	=> apply_filters( 'inventor_metabox_field_attributes', array(), $metabox_id, $field_id, $post_type )
-        ) );
-    }
-
-    /**
-     * Metabox for public facilities
-     *
-     * @access public
-     * @param $post_type
-     * @return array
-     */
-    public static function metabox_public_facilities( $post_type ) {
-        $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'public_facilities_box';
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'public_facilities';
-
-        if ( ! is_admin() ) {
-            add_filter( 'cmb2_override_' . $field_id . '_group_meta_value', array( __CLASS__, 'set_default_value' ) , 0, 4 );
-        }
-
-        $facilities_default = apply_filters( 'inventor_metabox_field_default', null, $metabox_id, $field_id, $post_type );
-
-        new_cmb2_box( array(
-            'id'            => $metabox_id,
-            'title'         => __( 'Public facilities', 'inventor-schools' ),
-            'object_types'  => array( 'school' ),
-            'context'       => 'normal',
-            'priority'      => 'high',
-            'show_names'    => true,
-            'show_in_rest'  => true,
-            'skip'          => true,
-            'fields'        => array(
-                // group
-                array(
-                    'id'                => $field_id,
-                    'type'              => 'group',
-                    'post_type'         => $post_type,
-                    'custom_value'	    => $facilities_default,
-                    'options'     	    => array(
-                        'group_title'   => __( 'Public Facility', 'inventor-schools' ),
-                        'add_button'    => __( 'Add Another Public Facility', 'inventor-schools' ),
-                        'remove_button' => __( 'Remove Public Facility', 'inventor-schools' ),
-                    ),
-                    'fields'            => array(
-                        // group fields
-                        array(
-                            'id'                => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'public_facilities_key',
-                            'name'              => __( 'Key', 'inventor-schools' ),
-                            'type'              => 'text',
-                            'custom_value'	    => $facilities_default,
-                        ),
-                        array(
-                            'id'                => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'public_facilities_value',
-                            'name'              => __( 'Value', 'inventor-schools' ),
-                            'type'              => 'text',
-                            'custom_value'	    => $facilities_default,
-                        ),
-                    ),
-                ),
-            ),
-        ) );
-    }
-
-    /**
-     * Metabox for valuation
-     *
-     * @access public
-     * @param $post_type
-     * @return array
-     */
-    public static function metabox_valuation( $post_type ) {
-        $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'valuation_box';
-        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'valuation';
-
-        if ( ! is_admin() ) {
-            add_filter('cmb2_override_' . $field_id . '_group_meta_value', array( __CLASS__, 'set_default_value' ) , 0, 4);
-        }
-
-        $valuation_default = apply_filters( 'inventor_metabox_field_default', null, $metabox_id, $field_id, $post_type );
-
-        new_cmb2_box( array(
-            'id'            => $metabox_id,
-            'title'         => __( 'Valuation', 'inventor-schools' ),
-            'object_types'  => array( 'school' ),
-            'context'       => 'normal',
-            'priority'      => 'high',
-            'show_names'    => true,
-            'show_in_rest'  => true,
-            'skip'          => true,
-            'fields'        => array(
-                // group
-                array(
-                    'id'                => $field_id,
-                    'type'              => 'group',
-                    'custom_value'	    => $valuation_default,
-                    'post_type'         => 'school',
-                    'options'     	    => array(
-                        'group_title'   => __( 'Valuation', 'inventor-schools' ),
-                        'add_button'    => __( 'Add Another Valuation', 'inventor-schools' ),
-                        'remove_button' => __( 'Remove Valuation', 'inventor-schools' ),
-                    ),
-                    'fields'            => array(
-                        // group fields
-                        array(
-                            'id'                => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'valuation_key',
-                            'name'              => __( 'Key', 'inventor-schools' ),
-                            'type'              => 'text',
-                            'custom_value'	    => $valuation_default,
-                        ),
-                        array(
-                            'id'                => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'valuation_value',
-                            'name'              => __( 'Value', 'inventor-schools' ),
-                            'type'              => 'text',
-                            'custom_value'	    => $valuation_default,
-                        ),
-                    ),
-                ),
-            ),
-        ) );
-    }
-
-    /**
-     * Set default data for field
-     *
-     * @access public
-     * @param $data
-     * @param $object_id
-     * @param $a
-     * @param $field
-     * @return mixed
-     */
-    public static function set_default_value( $data, $object_id, $a, $field ) {
-        if ( ! empty( $field->args['custom_value'] ) ) {
-            return $field->args['custom_value'];
-        }
-
-        return $data;
-    }
-}
+// End of the first metabox. 
+         Inventor_Post_Types::add_metabox( 'school', array( 'banner', 'gallery', 'video', 'location', 'contact', 'flags', 'listing_category' ) );
+         Inventor_Post_Types::remove_metabox('school', array('Shop configuration') );
+           
+       } 
+      
+	}  
 
 Inventor_Schools_Post_Type_Schools::init();
