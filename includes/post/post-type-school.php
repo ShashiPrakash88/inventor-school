@@ -109,6 +109,8 @@
             'context'       => 'normal',
             'priority'      => 'high',
             'show_in_rest'  => true,
+			'hookup'       => false,
+        'save_fields'  => false
         ) );
 
 //1st field -- year	       
@@ -229,3 +231,4 @@
 	}  
 
 Inventor_Schools_Post_Type_Schools::init();
+?>
