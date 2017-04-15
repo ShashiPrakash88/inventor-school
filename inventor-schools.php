@@ -58,7 +58,7 @@ if ( ! class_exists( 'Inventor_Schools' ) && class_exists( 'Inventor' ) )
         {
             require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-schools-post-types.php';
             require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-schools-customizations.php';
-            require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-schools-logic.php';
+            require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-school-field-types.php';
         }
       }
      new Inventor_Schools();
