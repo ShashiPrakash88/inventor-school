@@ -22,26 +22,22 @@
         </tr>
     </thead>
     <tbody>
-        <?php $index = 0; ?>
-        <?php foreach( $classes as $key => $display ): ?>
+        <?php $index = 0; 
+         foreach( $classes as $key => $display ): ?>
             <tr>
-              <?php $dis  = ''; ?>
-              <?php $sc   = ''; ?>
-              <?php $st   = ''; ?>
-			  <?php $obc  = ''; ?>
-              <?php if ( is_array( $field->value ) ) : ?>
-               <?php foreach( $field->value as $classes ) : ?>
-               <?php if( $classes['listing_day'] == $key ) : ?>
-               <?php
-$total   = !empty( $classes['total'] )   ? $classes['total'] : '';
-$appear  = !empty( $classes['appear'] )  ? $classes['appear']  : '';
-$pass    = !empty( $classes['pass'] )    ? $classes['pass']  : '';
-$above60 = !empty( $classes['above60'] ) ? $classes['above60'] : '';
-$fail    = !empty( $classes['fail'] )     ? $classes['fail'] : '';
-                         ?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+        <?php $total  = '';   $appear   = ''; $pass  = ''; 
+			  $above60  = ''; $fail ='';
+               if ( is_array( $field->value ) ) : 
+               foreach( $field->value as $results ) : 
+               if( $results['listing_day'] == $key ) : 
+$total   = !empty( $results['total'] )   ? $results['total'] : '';
+$appear  = !empty( $results['appear'] )  ? $results['appear']  : '';
+$pass    = !empty( $results['pass'] )    ? $results['pass']  : '';
+$above60 = !empty( $results['above60'] ) ? $results['above60'] : '';
+$fail    = !empty( $results['fail'] )    ? $results['fail'] : '';
+                         endif; 
+						 endforeach; 
+                         endif; ?>
 <td>
 <label for="class_<?php echo $index; ?>_no.class"></label>
 <input type="hidden" name="class[<?php echo $index; ?>][no.class]" id="class_<?php echo $index; ?>_no.class" value="<?php echo $key; ?>"><?php echo $display; ?>

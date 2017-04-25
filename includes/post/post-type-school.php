@@ -113,7 +113,7 @@
                 'type'            => 'radio_inline',
 		        'show_option_none'  => false,
 		        'options'         => array (
-                     'custom' => __('Rural', 'cmb2'),'urban'  => __('Urban', 'cmb2')  )   
+                     'Rural' => __('Rural', 'cmb2'),'Urban'  => __('Urban', 'cmb2')  )   
 					 )); }
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'gender';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -124,8 +124,8 @@
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Only for Girls', 'cmb2'), 'boys'     => __('Only for Boys', 'cmb2'),
-					 'coed'     => __('Co-education', 'cmb2')  )       
+                     'Girls Only'   => __('Only for Girls', 'cmb2'), 'Boys Only'     => __('Only for Boys', 'cmb2'),
+					 'Co-Ed'     => __('Co-education', 'cmb2')  )       
 					 ));  }
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'type';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
@@ -136,13 +136,13 @@
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'none'     => __('Non Residential', 'cmb2'),
-                     'ashram'   => __('Residential -> Ashram', 'cmb2'),
-					 'nonash'   => __('Residential -> Non-Ashram(Govt)', 'cmb2'),
-					 'kgbv'     => __('Residential -> KGBV', 'cmb2'),
-					 'model'    => __('Residential -> Model School', 'cmb2'),
-					 'res'      => __('Residential -> No Type', 'cmb2'),
-					 'resna'    => __('Not Applicable', 'cmb2')   )    
+                     'Non-Residential'     => __('Non Residential', 'cmb2'),
+                     'Residential(Ashram)'   => __('Residential -> Ashram', 'cmb2'),
+					 'Residential(Non-Ashram)'   => __('Residential -> Non-Ashram(Govt)', 'cmb2'),
+					 'Residential(KGBV)'     => __('Residential -> KGBV', 'cmb2'),
+					 'Residential(Model)'    => __('Residential -> Model School', 'cmb2'),
+					 'Residential(No-type)'      => __('Residential -> No Type', 'cmb2'),
+					 'Not-Applicable'    => __('Not Applicable', 'cmb2')   )    
 					 ));   }
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'mngt';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -153,11 +153,11 @@
                  'type'              => 'radio_inline',
 				'show_option_none'  => false,
 	            'options' => array(
-		                     'edu'     => 'Dept. of Education', 'trib'       =>   'Tribal/Social Welfare Dept.',
-		                     'local'   => 'Local body',         'pvt'        =>   'Private Aided',
-		                     'unaided' => 'Private Unaided',    'center'     =>   'Central Government',
-							 'madarsa' => 'Madarsa Recognised', 'no_madarsa' =>   'Madarsa Unrecognised',
-		                     'unrecog' => 'Unrecognised',       'other'      =>   'Other',) 
+ 'Dept-of-Education'  => 'Dept. of Education', 'Tribal/Social Welfare' =>   'Tribal/Social Welfare Dept.',
+ 'Local body'         => 'Local body',         'PVT Aided'             =>   'Private Aided',
+ 'PVT Unaided'        => 'Private Unaided',    'Central Govt'          =>   'Central Government',
+ 'Madarsa Recognised' => 'Madarsa Recognised', 'Madarsa Unrecognised'  =>   'Madarsa Unrecognised',
+ 'Unrecodnised' => 'Unrecognised',       'Other'     =>   'Other',) 
 				     ));  }
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'board';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -168,9 +168,9 @@
 			    'show_option_none' => false,
 	            'default'          => 'custom', 
 		        'options'           => array (
-				       'custom'   => __( 'CBSE', 'cmb2' ),  'icse'     => __('ICSE', 'cmb2'),
-					   'state'    => __('State', 'cmb2'),   'inter'    => __('International', 'cmb2'),
-					   'none'     => __('Other', 'cmb2')  )
+				       'CBSE'   => __( 'CBSE', 'cmb2' ),  'Icse'     => __('ICSE', 'cmb2'),
+					   'State'    => __('State', 'cmb2'),   'International'    => __('International', 'cmb2'),
+					   'Other'     => __('Other', 'cmb2')  )
                       ));   }
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'board2';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) {
@@ -181,9 +181,9 @@
 			    'show_option_none' => false,
 	            'default'          => 'custom', 
 		        'options'           => array (
-				       'custom'   => __( 'CBSE', 'cmb2' ),  'icse'     => __('ICSE', 'cmb2'),
-					   'state'    => __('State', 'cmb2'),   'inter'    => __('International', 'cmb2'),
-					   'none'     => __('Other', 'cmb2')  )
+				       'CBSE'   => __( 'CBSE', 'cmb2' ),  'Icse'     => __('ICSE', 'cmb2'),
+					   'State'    => __('State', 'cmb2'),   'International'    => __('International', 'cmb2'),
+					   'Other'     => __('Other', 'cmb2')  )
                       ) );   }	
 // End of the first metabox 
 // 2nd metabox -- About the school 
@@ -214,11 +214,11 @@
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('1st', 'cmb2'),  'sec'     => __('2nd', 'cmb2'), 
-					 'third'    => __('3rd', 'cmb2'),  'for'     => __('4th', 'cmb2'),
-					 'five'     => __('5th', 'cmb2'),  'six'     => __('6th', 'cmb2'),
-					 'sven'     => __('7th', 'cmb2'),  'eight'   => __('8th', 'cmb2'),
-					 'nine'     => __('9th', 'cmb2'),  'eleven'   => __('11th', 'cmb2'),
+                     '1st'   => __('1st', 'cmb2'),    '2nd'  => __('2nd', 'cmb2'), 
+					 '3rd'   => __('3rd', 'cmb2'),   '4th'   => __('4th', 'cmb2'),
+					 '5th'   => __('5th', 'cmb2'),  '6th'    => __('6th', 'cmb2'),
+					 '7th'   => __('7th', 'cmb2'),  '8th'    => __('8th', 'cmb2'),
+					 '9th'   => __('9th', 'cmb2'),  '11th'   => __('11th', 'cmb2'),
 					 )
 				 ) ); }
   		 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'highclass';
@@ -229,11 +229,11 @@
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-				      'one'     => __('1st', 'cmb2'),  'sec'     => __('2nd', 'cmb2'),
-				     'third'     => __('3rd', 'cmb2'),  'four'     => __('4th', 'cmb2'),
-					 'five'     => __('5th', 'cmb2'),  'six'     => __('6th', 'cmb2'),
-					 'sven'     => __('7th', 'cmb2'),  'eight'   => __('8th', 'cmb2'),
-					 'ten'     => __('10th', 'cmb2'),  'twelve'   => __('12th', 'cmb2'), )
+				      '1st'   => __('1st', 'cmb2'),   '2nd'  => __('2nd', 'cmb2'), 
+					  '3rd'   => __('3rd', 'cmb2'),   '4th'  => __('4th', 'cmb2'),
+					  '5th'   => __('5th', 'cmb2'),   '6th'  => __('6th', 'cmb2'),
+					  '7th'   => __('7th', 'cmb2'),   '8th'  => __('8th', 'cmb2'),
+					  '10th'  => __('10th', 'cmb2'),  '12th' => __('12th', 'cmb2'), )
 				 ) ); }  
 // Adding predefined metaboxes 3rd, 4th, 5th , 6th ,7th (metabox number)
  Inventor_Post_Types::add_metabox( 'school', array( 'branding', 'location', 'gallery','video', 'contact') );
@@ -294,8 +294,9 @@
 			    'show_option_none' => false,
 	            'default'    => 'custom', 
 		        'options'    => array (
-				   'custom' => __( 'Handpump', 'cmb2' ), 'tap' => __( 'Tap Water', 'cmb2' ),  'Well' => __('From Well', 'cmb2'),
-				   'other'  => __('Other', 'cmb2'),     'none' => __('None', 'cmb2') )   
+			'Handpump' => __( 'Handpump', 'cmb2' ), 'Tap'   => __( 'Tap Water', 'cmb2' ),  
+		    'Well'     => __('From Well', 'cmb2'),  'Other' => __('Other', 'cmb2'),    
+		    'None'     => __('None', 'cmb2') )   
 				   )); }
           $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'electricity';
        	  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -305,7 +306,7 @@
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 		  $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'medchk';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -316,7 +317,7 @@
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 		  $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'midday';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -326,7 +327,7 @@
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
          $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'notinschool';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -338,9 +339,9 @@
 			    'show_option_none' => true,
 	            'default'    => 'custom', 
 		        'options'    => array (
-				   'custom' => __( 'From nearby school', 'cmb2' ), 'Ngo'  => __( 'NGO', 'cmb2' ), 'panch'  => __('Gram Panchayat', 'cmb2'),
-				   'hlpgp'  => __('Self help group', 'cmb2'),     'pta'  => __('PTA/ MTA', 'cmb2'),       
-				   'centr'  => __('Central Kitchen', 'cmb2'),   'others' => __('Others', 'cmb2') )   
+				'Nearby School'    => __( 'From nearby school', 'cmb2' ), 'NGO'      => __( 'NGO', 'cmb2' ), 'panch'  => __('Gram Panchayat', 'cmb2'),
+				'Self help group'  => __('Self help group', 'cmb2'),     'PTA/ MTA'  => __('PTA/ MTA', 'cmb2'),       
+				'Central Kitchen'  => __('Central Kitchen', 'cmb2'),     'others'    => __('Others', 'cmb2') )   
 				   )); }
 		 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'inschool';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -352,8 +353,8 @@
 			    'show_option_none' => false,
 	            'default'    => 'custom', 
 		        'options'    => array (
-				   'custom'  => __( 'Available', 'cmb2' ),         'NA'     => __( 'Not available', 'cmb2' ), 
-				   'cnstrc'  => __('Under Construction', 'cmb2'),  'class'  => __('Class used as a kitchen', 'cmb2') )   
+	    'Available'           => __( 'Available', 'cmb2' ),         'NA'                  => __( 'Not available', 'cmb2' ), 
+		'Under Construction'  => __('Under Construction', 'cmb2'),  'Class as a kitchen'  => __('Class used as a kitchen', 'cmb2') )   
 				   )); }         
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'cooks_m';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
@@ -432,9 +433,9 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Infrastructure
 			    'show_option_none' => false,
 	            'default'    => 'custom', 
 		        'options'    => array (
-				   'custom'  => __( 'Private', 'cmb2' ),  'rent'     => __( 'Rented', 'cmb2' ), 
-				   'govt'    => __('Government','cmb2'),  'govt2'    => __( 'Government but rented', 'cmb2' ),
-				   'delap'    => __('Delapidated','cmb2'),'underc'   => __( 'Under Construction', 'cmb2' ) )
+				   'Private'  => __( 'Private', 'cmb2' ),  'Rented'     => __( 'Rented', 'cmb2' ), 
+				   'Govt.'    => __('Government','cmb2'),  'Govt but rented'    => __( 'Government but rented', 'cmb2' ),
+				   'Delapidated'    => __('Delapidated','cmb2'),'Under Construction'   => __( 'Under Construction', 'cmb2' ) )
 		  ));   }	   
 		  $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'shift';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -502,7 +503,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Infrastructure
                 'attributes' => array(
                         'type'    => 'number',   'pattern'  => '\d*', 'min'      => 0,  )
 				 ) );  }
-		 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'building';
+		 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'boundary';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
 		  {  $details->add_field( array(
                 'name'       => __( 'Type of Boundary wall ', 'inventor-schools' ),
@@ -511,9 +512,9 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Infrastructure
 			    'show_option_none' => true,
 	            'default'    => 'custom', 
 		        'options'    => array (
-				   'custom'  => __( 'Pucca', 'cmb2' ),             'broken'     => __( 'Pucca but broken', 'cmb2' ), 
-				   'barb'    => __('Barbed wire fencing','cmb2'),  'hedg'    => __( 'Hedges', 'cmb2' ),               'NA'   => __( 'Not Applicable', 'cmb2' ),
-				   'partl'   => __('Partial','cmb2'),              'underc'   => __( 'Under Construction', 'cmb2' ), 'other'   => __( 'Others', 'cmb2' ),)
+				   'Pucca'  => __( 'Pucca', 'cmb2' ),             'Pucca but broken'     => __( 'Pucca but broken', 'cmb2' ), 
+				   'Barbed wire'    => __('Barbed wire fencing','cmb2'),  'Hedges'    => __( 'Hedges', 'cmb2' ),               'NA'   => __( 'Not Applicable', 'cmb2' ),
+				   'Partial'   => __('Partial','cmb2'),              'Under Construction'   => __( 'Under Construction', 'cmb2' ), 'other'   => __( 'Others', 'cmb2' ),)
 		  ));   }
 		$field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'playgrnd';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -523,7 +524,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Infrastructure
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 		 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'ramps';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -533,7 +534,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Infrastructure
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 		$field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'complabs';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -543,7 +544,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Infrastructure
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 	    $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'comp';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
@@ -572,7 +573,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 		   $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'record';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -582,9 +583,9 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
-				 		 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'records';
+		  $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'records';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
 		  {  $details->add_field( array(
                 'name'       => __( 'Pupils records shared with parents', 'inventor-schools' ),
@@ -592,7 +593,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 		  $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'library';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -602,7 +603,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'books';
        	 if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -621,7 +622,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 
 		 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'recievedmoth';
@@ -764,7 +765,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'attributes' => array(
                         'type'    => 'number',   'pattern'  => '\d*', 'min'      => 0,  )
 				 ) );  }  
- 	 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'mngtr';
+ 	 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'clstrof';
      if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
 		  {  $details->add_field( array(
                 'name'       => __( 'By Cluster Resource Center Officer', 'inventor-schools' ),
@@ -774,7 +775,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'attributes' => array(
                         'type'    => 'number',   'pattern'  => '\d*', 'min'      => 0,  )
 				 ) );  }  
-	 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'mngte';
+	 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'commem';
      if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
 		  {  $details->add_field( array(
                 'name'       => __( 'By Community Members', 'inventor-schools' ),
@@ -784,7 +785,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'attributes' => array(
                         'type'    => 'number',   'pattern'  => '\d*', 'min'      => 0,  )
 				 ) );  }  
-	 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tlmr';
+	 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'supoffic';
      if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
 		  {  $details->add_field( array(
                 'name'       => __( 'By Supervisory Officials', 'inventor-schools' ),
@@ -822,7 +823,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'mem_m';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
@@ -905,7 +906,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'type'              => 'radio_inline',
 				'show_option_none'  => false,
 		        'options'           => array (
-                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'sp_material';
        	  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
@@ -1017,9 +1018,9 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
 			    'show_option_none' => true,
 	            'default'          => 'custom', 
 		        'options'           => array (
-				       'custom'   => __( 'school teachers', 'cmb2' ),  'special'  => __('Special Engaged Teachers', 'cmb2'),
-					   'both'    => __('Both', 'cmb2'),   'ngo'    => __('NGO', 'cmb2'),
-					   'others'     => __('Others', 'cmb2')  )
+				       'School '   => __( 'school teachers', 'cmb2' ),  'Special'  => __('Special Engaged Teachers', 'cmb2'),
+					   'School & Special'    => __('Both', 'cmb2'),   'NGO'    => __('NGO', 'cmb2'),
+					   'Others'     => __('Others', 'cmb2')  )
                       ));   }
          $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'train_type';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
@@ -1030,8 +1031,8 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'type'            => 'radio_inline',
 		        'show_option_none'  => false,
 		        'options'         => array (
-                     'custom' => __('Residential', 'cmb2'),'nonres'  => __('Non-Residential', 'cmb2'), 
-                     'both'   => __('Both', 'cmb2'),       'others'  => __('Others', 'cmb2')  )   
+                     'Residential' => __('Residential', 'cmb2'),'Non-Residential'  => __('Non-Residential', 'cmb2'), 
+                     'All types'   => __('Both', 'cmb2'),       'Others'  => __('Others', 'cmb2')  )   
 					 )); }	
          $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'trainat';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
@@ -1042,8 +1043,8 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'type'            => 'radio_inline',
 		        'show_option_none'  => true,
 		        'options'         => array (
-                    'custom' => __('School Premises', 'cmb2'),'nonres'  => __('Outside the school premises', 'cmb2'), 
-                     'both'   => __('Both', 'cmb2'),           'nota'   => __('Not Applicable', 'cmb2')  )      
+                    'School Premises' => __('School Premises', 'cmb2'),'Outside School'  => __('Outside the school premises', 'cmb2'), 
+                     'In & Out of school'   => __('Both', 'cmb2'),           'Not Applicable'   => __('Not Applicable', 'cmb2')  )      
 					 )); }
 // 15th metabox -- Teachers 
         $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Teachers';

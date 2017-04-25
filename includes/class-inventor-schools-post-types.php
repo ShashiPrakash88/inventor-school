@@ -8,7 +8,7 @@
  *
  * @class Inventor_Schools_Post_Types
  * @package Inventor/Classes/Post_Types
- * @author Pragmatic Mates
+ * @author Bhaargavi Agrawal
  */
     class Inventor_Schools_Post_Types
     {

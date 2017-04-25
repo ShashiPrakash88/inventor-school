@@ -3,9 +3,7 @@
  * Plugin Name: Inventor Schools
  * Version: 1.2.0
  * Description: Schools listing support.
- * Author: Pragmatic Mates
- * Author URI: http://inventorwp.com
- * Plugin URI: http://inventorwp.com/plugins/inventor-schools/
+ * Author: Bhaargavi Agrawal
  * Text Domain: inventor-schools
  * Domain Path: /languages/
  * License: GNU General Public License v3.0
@@ -19,7 +17,7 @@ if ( ! class_exists( 'Inventor_Schools' ) && class_exists( 'Inventor' ) )
      * declaring global constant
      * @class Inventor_Schools
      * @package Inventor_Schools
-     * @author Pragmatic Mates
+     * @author Bhaargavi Agrawal
      */
     final class Inventor_Schools
 	  {
@@ -59,6 +57,7 @@ if ( ! class_exists( 'Inventor_Schools' ) && class_exists( 'Inventor' ) )
             require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-schools-post-types.php';
             require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-schools-customizations.php';
             require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-school-field-types.php';
+			require_once INVENTOR_SCHOOLS_DIR . 'includes/class-inventor-school-logics.php';
         }
       }
      new Inventor_Schools();

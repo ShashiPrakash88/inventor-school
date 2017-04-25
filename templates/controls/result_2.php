@@ -35,13 +35,13 @@
 			  <?php $obc  = ''; ?>
               <?php if ( is_array( $field->value ) ) : ?>
                <?php foreach( $field->value as $classes ) : ?>
-               <?php if( $classes['listing_day'] == $key ) : ?>
+               <?php if( $results2['listing_day'] == $key ) : ?>
                <?php
-$total   = !empty( $classes['total'] )   ? $classes['total'] : '';
-$appear  = !empty( $classes['appear'] )  ? $classes['appear']  : '';
-$pass    = !empty( $classes['pass'] )    ? $classes['pass']  : '';
-$above60 = !empty( $classes['above60'] ) ? $classes['above60'] : '';
-$fail    = !empty( $classes['fail'] )     ? $classes['fail'] : '';
+$total   = !empty( $results2['total'] )   ? $results2['total'] : '';
+$appear  = !empty( $results2['appear'] )  ? $results2['appear']  : '';
+$pass    = !empty( $results2['pass'] )    ? $results2['pass']  : '';
+$above60 = !empty( $results2['above60'] ) ? $results2['above60'] : '';
+$fail    = !empty( $results2['fail'] )     ? $results2['fail'] : '';
                          ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
