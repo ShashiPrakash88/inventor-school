@@ -236,7 +236,7 @@
 					  '10th'  => __('10th', 'cmb2'),  '12th' => __('12th', 'cmb2'), )
 				 ) ); }  
 // Adding predefined metaboxes 3rd, 4th, 5th , 6th ,7th (metabox number)
- Inventor_Post_Types::add_metabox( 'school', array( 'branding', 'location', 'gallery','video', 'contact') );
+ Inventor_Post_Types::add_metabox( 'school', array( 'branding', 'location', 'gallery','video', 'contact','opening_hours','banner') );
 // Altering metabox location (3rd metabox)
 	$pin_metabox = CMB2_Boxes::get( INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'location' );
          $pin_metabox->add_field( array(

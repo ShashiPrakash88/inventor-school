@@ -1,107 +1,18 @@
 <?php do_action( 'inventor_listing_detail_school_aschool' ); ?>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="mystyles.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-#listing-detail-section-attributes
-{
-	display:none;
-}
-.family
-{
-	font-family:roboto;
-}
-.tcenter
-{
-	text-align:center;
-}
-.lcenter
-{
-	text-align:left;
-}
-.size1
-{
-	font-size:15px;
-}
-.size2
-{
- font-size:35px;
-}
-.colorred
-{color:#FF0000;}
-.colorgreen
-{color:#00CC00;}
-.colorblue
-{color:#003399;}
-.coloryellow
-{color:#FFA500;}
-.colorpurple
-{color:#CC00CC;}
-.colorbrown
-{color:#800000;}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"-->
 
-.bgblue
-{
-background-color:#00CCCC;
-}
-.cardcontain
-{
-height:280px;
-border:2px solid black;
-perspective:1000px;
-background-color:#66CC00;
-}
-.card
-{
-width:100%;
-height:100%;
-transition: 0.6s;
-transform-style: preserve-3d;
-}
-.cardcontain:hover .card
-{
-transform: rotateY(180deg);
-}
-.cardcontain:hover
-{
-background-color:#00CCCC;
-}
 
-.front, .back 
-{
-position:absolute;
-backface-visibility: hidden;
-width:100%;
-height:100%;
-text-align:center;
-}
-.front 
-{
-transform: rotateY(0deg);
-font-size:30px;
-color:#003399;
-}
-.back {
-transform: rotateY(180deg);
-font-size:30px;
-color:#CC0000;
-}
-.padng
-{
-	padding-right:5px;
-	padding-left:5px;
-}
-</style>
-</head>
-<body>
-<!-- School Basic Details -->
 <?php 
+/**
+  * Including asset dependencies
+**/
+ wp_enqueue_style( 'inventor-schools', plugin_dir_url( 'assets/style/frontend.css') );
+ wp_enqueue_style( 'inventor-schools-w3', plugin_dir_url( 'assets/style/w3.css') );
+// 1st display
  $code = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'schcode', true ); 
  $year = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'year',    true ); 
  $loc  = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'location',true );
@@ -541,12 +452,7 @@ color:#CC0000;
 </div>
 </div>
 </div>
-<!-- 4th Display -- Teaches & Students -->
-<div class="listing-detail-section family">
-
-</div>    
+<!-- 4th Display -- Teaches & Students --> 
 	<!-- /.listing-detail-section -->
 	<?php endif; ?>
 <?php do_action( 'inventor_after_listing_detail_school_aschool' ); ?>
-</body>
-</html>
