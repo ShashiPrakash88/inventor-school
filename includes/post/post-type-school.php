@@ -1172,7 +1172,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
 		  {  $details->add_field( array(
                 'name'              => __( '', 'inventor-schools' ),
                 'id'                => $field_id,
-                'type'              => 'workhours',
+                'type'              => 'working_hours',
                ) ); }	
 // 17th Metabox -- Students 
  		$metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'stud_1';
@@ -1189,7 +1189,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
 		  {  $details->add_field( array(
                 'name'              => __( '', 'inventor-schools' ),
                 'id'                => $field_id,
-                'type'              => 'student1',
+                'type'              => 'student_primary',
                ) ); }
 // 18th Metabox -- Students
  		$metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'stud_2';
@@ -1206,7 +1206,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
 		  {  $details->add_field( array(
                 'name'              => __( '', 'inventor-schools' ),
                 'id'                => $field_id,
-                'type'              => 'student2',
+                'type'              => 'student_secondary',
                ) ); }
 // 19th Metabox -- Results
 		$metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'results';
@@ -1223,7 +1223,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
 		  {  $details->add_field( array(
                 'name'              => __( '', 'inventor-schools' ),
                 'id'                => $field_id,
-                'type'              => 'result1',
+                'type'              => 'result_primary',
                ) ); }
 // 20th Metabox -- Result2
  		$metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'res_2';
@@ -1240,7 +1240,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
 		  {  $details->add_field( array(
                 'name'              => __( '', 'inventor-schools' ),
                 'id'                => $field_id,
-                'type'              => 'result2',
+                'type'              => 'result_secondary',
                ) ); }
 	
 		}

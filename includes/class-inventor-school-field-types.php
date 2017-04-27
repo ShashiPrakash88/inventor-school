@@ -6,11 +6,11 @@ class Inventor_Schools_Field_Type{
 	
 	
     public static function includes() {
-		require_once INVENTOR_SCHOOLS_DIR . 'includes/field-types/workhours.php';
-		require_once INVENTOR_SCHOOLS_DIR . 'includes/field-types/student1.php';
-		require_once INVENTOR_SCHOOLS_DIR . 'includes/field-types/student2.php';
-		require_once INVENTOR_SCHOOLS_DIR . 'includes/field-types/result1.php';
-		require_once INVENTOR_SCHOOLS_DIR . 'includes/field-types/result2.php';
+		require_once INVENTOR_SCHOOLS_DIR . 'includes/field-types/working_hours.php';
+		require_once INVENTOR_SCHOOLS_DIR . 'includes/field-types/student_primary.php';
+		require_once INVENTOR_SCHOOLS_DIR . 'includes/field-types/student_secondary.php';
+		require_once INVENTOR_SCHOOLS_DIR . 'includes/field-types/result_primary.php';
+		require_once INVENTOR_SCHOOLS_DIR . 'includes/field-types/result_secondary.php';
     }
 }
 

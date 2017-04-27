@@ -1,17 +1,17 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {exit;}
 
-     class Inventor_Schools_Field_Types_result1
+     class Inventor_Schools_Field_Types_student_secondary
 	 {
 		public static function init() 
 		{
-        add_filter( 'cmb2_render_result1', array( __CLASS__, 'render' ), 10, 5 );
-        add_filter( 'cmb2_sanitize_result1', array( __CLASS__, 'sanitize' ), 12, 4 );
+        add_filter( 'cmb2_render_student_secondary', array( __CLASS__, 'render' ), 10, 5 );
+        add_filter( 'cmb2_sanitize_student_secondary', array( __CLASS__, 'sanitize' ), 12, 4 );
         }   
 // Adding new field type
         public static function render( $field, $value, $object_id, $object_type, $field_type_object )
 		{
-			echo Inventor_Template_Loader::load( 'controls/result_1', array(
+			echo Inventor_Template_Loader::load( 'controls/student_secondary', array(
 			
                     'field'             => $field,
                     'value'             => $value,
@@ -27,4 +27,4 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
         public static function escape( $value ) 
 		{return $value;}
      }
-Inventor_Schools_Field_Types_result1::init();
+Inventor_Schools_Field_Types_student_secondary::init();

@@ -16,7 +16,7 @@
      
        public static function special_sections() 
 	   {
-        echo Inventor_Template_Loader::load( 'controls/aschool',    array(), INVENTOR_SCHOOLS_DIR );
+        echo Inventor_Template_Loader::load( 'controls/design.php',    array(), INVENTOR_SCHOOLS_DIR );
         
 		}
       }

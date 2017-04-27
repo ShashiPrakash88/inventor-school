@@ -1,17 +1,17 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {exit;}
 
-     class Inventor_Schools_Field_Types_workhours
+     class Inventor_Schools_Field_Types_result_secondary
 	 {
 		public static function init() 
 		{
-        add_filter( 'cmb2_render_workhours', array( __CLASS__, 'render' ), 10, 5 );
-        add_filter( 'cmb2_sanitize_workhours', array( __CLASS__, 'sanitize' ), 12, 4 );
+        add_filter( 'cmb2_render_result_secondary', array( __CLASS__, 'render' ), 10, 5 );
+        add_filter( 'cmb2_sanitize_result_secondary', array( __CLASS__, 'sanitize' ), 12, 4 );
         }   
 // Adding new field type
         public static function render( $field, $value, $object_id, $object_type, $field_type_object )
 		{
-			echo Inventor_Template_Loader::load( 'controls/working-hours', array(
+			echo Inventor_Template_Loader::load( 'controls/result_secondary', array(
 			
                     'field'             => $field,
                     'value'             => $value,
@@ -27,4 +27,4 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
         public static function escape( $value ) 
 		{return $value;}
      }
-Inventor_Schools_Field_Types_workhours::init();
+Inventor_Schools_Field_Types_result_secondary::init();
