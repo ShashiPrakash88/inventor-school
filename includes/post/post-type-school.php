@@ -13,6 +13,7 @@
        {        
          add_action( 'init', array( __CLASS__, 'definition' ), 11 );
          add_action( 'cmb2_init', array( __CLASS__, 'fields' ) );
+         add_action( 'after_setup_theme', array( __CLASS__,'inventor_listing_types_support') );
          add_filter( 'inventor_shop_allowed_listing_post_types', array( __CLASS__, 'allowed_purchasing' ) );
          add_filter( 'inventor_claims_allowed_listing_post_types', array( __CLASS__, 'allowed_claiming' ) );
        }
@@ -45,14 +46,33 @@
             'show_in_menu'	    => 'listings',
             'supports'          => array( 'title', 'editor', 'thumbnail', 'comments', 'author' ),
             'has_archive'       => true,
-            'rewrite'           => array( 'slug' => _x( 'schools', 'URL slug', 'inventor-schools' ) ),
+            'rewrite'           => array( 'slug' => __( 'schools', 'URL slug', 'inventor-schools' ) ),
             'public'            => true,
             'show_ui'           => true,
             'show_in_rest'      => true,
             'categories'        => array(),
          ));
-		  add_action( 'after_setup_theme', 'inventor_listing_types_support' );
-		  function inventor_listing_types_support() {add_theme_support( 'inventor-listing-types', array('school',) );}
+        }
+        
+        function inventor_listing_types_support() 
+        {
+            add_theme_support( 'inventor-listing-types', array(
+              'business',
+              'car',
+              'coupon',
+              'dating',
+              'education',
+              'event',
+              'food',
+              'hotel',
+              'job',
+              'pet',
+              'property',
+              'resume',
+              'shopping',
+              'travel',
+              'school'
+            )  );
         }
 // Defining metaboxes and fields 		
       public static function fields()

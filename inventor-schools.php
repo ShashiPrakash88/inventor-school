@@ -29,10 +29,7 @@ if ( ! class_exists( 'Inventor_Schools' ) && class_exists( 'Inventor' ) )
 		{
             $this->constants();
             $this->includes();
-            if ( class_exists( 'Inventor_Utilities' ) ) 
-			{
-                Inventor_Utilities::load_plugin_textdomain( self::DOMAIN, __FILE__ );
-            }
+            Inventor_Utilities::load_plugin_textdomain( self::DOMAIN, __FILE__ );
         }
         /** Defining the above mentioned functions includes and constants
   

@@ -6,6 +6,7 @@
  wp_enqueue_style( 'inventor-schools',    plugins_url('inventor-schools/').'assets/styles/frontend.css');
  wp_enqueue_style( 'inventor-schools-w3', plugins_url( 'inventor-schools/').'assets/styles/w3.css' );
 
+
  // 1st display  The Basic Details
  $school_code            = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'schcode', true ); 
  $estabalishment_year    = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'year',    true ); 
