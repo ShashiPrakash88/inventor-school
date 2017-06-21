@@ -1,0 +1,125 @@
+// After searching through many sites, blogs and my own thoughts
+  
+  Name,place
+
+  description
+
+  avg. fees // i think its important
+
+  curriculum(affiliation board, class offered, streams[science,commerce,arts])
+
+  about(established in, school timing, type[govt/private], type[boys/girls/co-ed], instruction medium)
+
+  basic facilities(labs, library, playground, etc.)
+
+  other facilities(gym, auditorium, music and dance rooms, physical fitness centre, etc.)
+
+  student teacher ratio, gender ratio
+
+  extra curricular
+
+  contact details
+
+//Groups
+  1.basic details
+    affiliation board, class offered, student teacher ratio, gender ratio, type[govt/private], type[boys/girls/co-ed]
+
+  2.about
+    avg. fees, streams[science,commerce,arts], instruction medium, established in, school timing
+
+  3.facilities
+    labs, library, playground, auditorium, music and dance rooms, physical fitness centre,
+    extra curricular
+
+  4.contact details
+
+
+
+//From RawDataDescription.pdf file
+
+  1. The Basic Data file contains
+    DISTNAME District Name
+    SCHOOL_NAME School Name
+    //better in address part
+      BLOCK_NAME Block Name
+      CLUSTER_NAME Cluster Name
+      VILLAGE_NAME Village Name
+      PINCODE Pincode
+
+  2. The General Data file contains
+    RURURB Rural or Urban // not sure
+    MEDINSTR1 Medium of Instruction 1
+    ESTDYEAR Year of Establishment
+    PPSEC_YN Pre-primary Section available or not (yes or no)
+    LOWCLASS Lowest class
+    HIGHCLASS Highest class
+    SCHCAT School Category
+    SCHTYPE School Type
+
+  3. The Facility Data file contains
+    BLDSTATUS Status of the school Building
+    CLROOMS Total Classrooms used for instructional purposes
+    MEALSINSCH Status of Mid-day Meal
+    CAL_YN Does the school have Computer Aided Learning (CAL) Lab
+    LIBRARY_YN Whether school has Library facility/Book bank/Reading Corner?
+    PGROUND_YN Playground Yes No
+    BOOKINLIB No. of Books in school library
+    MEDCHK_YN Whether Medical check-up of students conducted last year // not sure
+
+  4. The Teacher Data file contains
+    // for total teachers, have to be pre-calculated
+      TCH_MALE Total Male Teachers
+      TCH_FEMALE Total Female Teachers
+      TCH_NR Teachers with No Response in Gender Column
+      HEADTCH Total Head Teachers in Schools
+      GRADABOVE Total Teachers Graduate and above
+      TCHWITHPROF Total Teachers with Professional Qualification
+      TCHINVLD Total teachers involved in (non-teaching assignments)
+
+  5. The RTE Data file contains
+    CCE_YN Is CCE implemented in the School at elementary level (yes or no) // not sure
+    ACSTARTMNTH When does the academic year start (month)? //optional
+
+  6. The Enrollment and Repeaters Data file contains
+    //for Total_Strength of students from all classes, have to be pre-calculated
+      C1_TOTB Class 1 Total Boys
+      C2_TOTB Class 2 Total Boys
+      C3_TOTB Class 3 Total Boys
+      C4_TOTB Class 4 Total Boys
+      C5_TOTB Class 5 Total Boys
+      C6_TOTB Class 6 Total Boys
+      C7_TOTB Class 7 Total Boys
+      C8_TOTB Class 8 Total Boys
+
+      C1_TOTG Class 1 Total Girls
+      C2_TOTG Class 2 Total Girls
+      C3_TOTG Class 3 Total Girls
+      C4_TOTG Class 4 Total Girls
+      C5_TOTG Class 5 Total Girls
+      C6_TOTG Class 6 Total Girls
+      C7_TOTG Class 7 Total Girls
+      C8_TOTG Class 8 Total Girls
+
+
+
+// From merged.csv file
+  CATEGORIES 2 // not sure
+  TYPES 1  //for board
+  NAME OF THE HEAD
+  YEAR_OF_FOUNDATION
+  STATUS_OF_AFFILIATION
+  IMAGE URL
+  WORKING HOURS
+  NAME_OF_TRUST_SOCIETY_MANAGING_COMMITTEE  // not sure
+  
+  // for contact details
+    PERSON TO CONTACT
+    PHONE 1
+    PHONE 2
+    PHONE 3
+    PHONE 4
+    PHONE 5 
+    EMAIL_ID
+    WEBSITE
+    LOCALITY
+    COUNTRY

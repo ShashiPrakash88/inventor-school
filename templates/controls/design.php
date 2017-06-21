@@ -18,9 +18,9 @@
  $board_higher_secondary = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'board2', true ); 
  $lowest_class           = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'lowclass' , true ); 
  $highest_class          = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'highclass', true ); 
- $instruction_1          = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . 'med_instruc1' , true ); 
- $instruction_2          = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . 'med_instruc2' , true ); 
- $instruction_3          = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . 'med_instruc3' , true ); 
+ $instruction_1          = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'med_instruc1' , true ); 
+ $instruction_2          = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'med_instruc2' , true ); 
+ $instruction_3          = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'med_instruc3' , true ); 
  // 2nd display About The School
  $water_type             = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'watertype',  true ); 
  $electricity            = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'electricity',true );

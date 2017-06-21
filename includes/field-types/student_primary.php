@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {exit;}
 
-     class Inventor_Schools_Field_Types_student_primary
+    class Inventor_Schools_Field_Types_student_primary
 	 {
 		public static function init() 
 		{
@@ -28,3 +28,4 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 		{return $value;}
      }
 Inventor_Schools_Field_Types_student_primary::init();
+?>
