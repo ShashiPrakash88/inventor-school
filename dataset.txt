@@ -1,0 +1,9 @@
+//Missing information for the column names in description pdf files(main dataset)
+  workdays_pr_2
+  workdays_upr_2
+  mealsinsch_2
+  senrb5
+  senrg5
+  senrb8
+  senrg8
+  place_id

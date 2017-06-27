@@ -2,3 +2,5 @@
 e.g. .family, .size1 don't make any sense
 
 //TODO rename files
+
+missing information details are in dataset.txt file

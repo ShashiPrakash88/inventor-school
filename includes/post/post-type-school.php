@@ -123,7 +123,7 @@
 				   'custom' => __( 'January', 'cmb2' ), 'feb' => __( 'February', 'cmb2' ),  'march' => __('March', 'cmb2'),
 				   'april'  => __('April', 'cmb2'),     'may' => __('May', 'cmb2'),         'june'  => __('June', 'cmb2'),
 				   'july'   => __('July', 'cmb2'),      'aug' => __('August', 'cmb2'),      'sept'  => __('September', 'cmb2'),
-				   'octbr'  => __('October', 'cmb2'),   'nov' => __('Novmeber', 'cmb2'),    'dec'   => __('December', 'cmb2') )   
+				   'octbr'  => __('October', 'cmb2'),   'nov' => __('November', 'cmb2'),    'dec'   => __('December', 'cmb2') )   
 				   )); }
          $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'location';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
@@ -180,6 +180,33 @@
  'Madarsa Recognised' => 'Madarsa Recognised', 'Madarsa Unrecognised'  =>   'Madarsa Unrecognised',
  'Unrecodnised' => 'Unrecognised',       'Other'     =>   'Other',) 
 				     ));  }
+
+
+        $schcat_array=array(
+            'Primary only (1-5)' => __( 'Primary only (1-5)', 'cmb2' ),
+            'Primary with Upper Primary(1-8)' => __( 'Primary with Upper Primary(1-8)', 'cmb2' ),
+            'Primary with upper primary and secondary and higher secondary(1-12)' => __( 'Primary with upper primary and secondary and higher secondary(1-12)', 'cmb2' ),
+            'Upper Primary only(6-8)' => __( 'Upper Primary only(6-8)', 'cmb2' ),
+            'Upper Primary with secondary and higher secondary(6-12)' => __( 'Upper Primary with secondary and higher secondary(6-12)', 'cmb2' ),
+            'Primary with upper primary and secondary(1-10)' => __( 'Primary with upper primary and secondary(1-10)', 'cmb2' ),
+            'Upper Primary with secondary(6-10)' => __( 'Upper Primary with secondary(6-10)', 'cmb2' ),
+            'Secondary only(9 & 10)' => __( 'Secondary only(9 & 10)', 'cmb2' ),
+            'Secondary with Hr. Secondary(9-12)' => __( 'Secondary with Hr. Secondary(9-12)', 'cmb2' ),
+            'Hr. Secondary only/Jr. College(11 & 12)' => __( 'Hr. Secondary only/Jr. College(11 & 12)', 'cmb2' ), 
+        );
+
+        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'schcat';
+         if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+		  {  $details->add_field( array(
+                'name'       => __( 'School Category', 'inventor-schools' ),
+			    'desc'       => 'Select the school category',
+                'id'         => $field_id,
+                'type'       => 'select',
+			    'show_option_none' => false,
+	            'default'    => '1to5', 
+		        'options'    => $schcat_array
+                )); }
+
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'board';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
              {  $details->add_field( array(
@@ -228,6 +255,16 @@
 		        'options'           => array (
                      'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
 				 ) ); }
+        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'ppstudent';
+       	 if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+		  {  $details->add_field( array(
+                'name'       => __( 'No. of Pre-primary students', 'inventor-schools' ),
+                'id'         => $field_id,
+                'type'       => 'text_small',
+                'attributes' => array(
+                        'type' => 'number',   'pattern' => '\d*', 'min' => 0)
+				 ) ); }
+
 		 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'lowclass';
        	 if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
 		  {  $details->add_field( array(
@@ -325,6 +362,17 @@
 	            'default'    => 'English', 
 		        'options'    => $med_ins_array   
 				   )); }
+        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'med_instruc4';
+         if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+		  {  $details->add_field( array(
+                'name'       => __( 'Medium of Intruction 4', 'inventor-schools' ),
+			    'desc'       => '4th language in which children are taught',
+                'id'         => $field_id,
+                'type'       => 'select',
+			    'show_option_none' => false,
+	            'default'    => 'English', 
+		        'options'    => $med_ins_array   
+				   )); }
 // Adding predefined metaboxes 3rd, 4th, 5th , 6th ,7th (metabox number)
  Inventor_Post_Types::add_metabox( 'school', array( 'branding', 'location', 'gallery','video', 'contact','opening_hours','banner') );
 // Altering metabox location (3rd metabox)
@@ -354,6 +402,36 @@
 			'options'           => array (
 			'yes' => __('Yes' , 'cmb2'), 'no' => __('No' , 'cmb2'))   
 			) );
+
+// Altering metabox contact
+	$adrs_metabox = CMB2_Boxes::get( INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'contact' );
+         $adrs_metabox->add_field( array(
+            'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'distname',
+            'name'       => __( 'District Name','inventor-schools'),
+            'type'       => 'text_medium',
+         ) ); 
+		  $adrs_metabox->add_field( array(
+            'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'block',
+            'name'       => __( 'Block Name','inventor-schools'),
+            'type'       => 'text_medium'
+         ) ); 
+		  $adrs_metabox->add_field( array(
+            'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'cluster',
+            'name'       => __( 'Cluster Name','inventor-schools'),
+            'type'       => 'text_medium'
+         ) ); 
+		  $adrs_metabox->add_field( array(
+            'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'village',
+            'name'       => __( 'Village Name','inventor-schools'),
+            'type'       => 'text_medium'
+         ) );
+         $adrs_metabox->add_field( array(
+            'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'state',
+            'name'       => __( 'State Name','inventor-schools'),
+            'type'       => 'text_medium'
+         ) );  
+
+
 // 8th metabox -- Basic Facilites 
          $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Basic Facilities';
          $details = new_cmb2_box( array(
@@ -539,6 +617,16 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Infrastructure
 		        'options'           => array (
                      'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
 				 ) ); }
+        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'schres';
+		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+		  {  $details->add_field( array(
+                'name'       => __( 'Is the school residential for primary students', 'inventor-schools' ),
+                'id'         => $field_id,
+                'type'              => 'radio_inline',
+				'show_option_none'  => false,
+		        'options'           => array (
+                     'custom'   => __('Yes', 'cmb2'), 'no'  => __('No', 'cmb2'), )
+				 ) ); }
          $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'clrooms';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
 		  {  $details->add_field( array(
@@ -628,6 +716,16 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Infrastructure
 		        'options'           => array (
                      'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
 				 ) ); }
+        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'hmroom';
+		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+		  {  $details->add_field( array(
+                'name'       => __( 'Separate room for Head Teacher/ Principal available', 'inventor-schools' ),
+                'id'         => $field_id,
+                'type'              => 'radio_inline',
+				'show_option_none'  => false,
+		        'options'           => array (
+                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
+				 ) ); }
 		$field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'complabs';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
 		  {  $details->add_field( array(
@@ -658,6 +756,70 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
             'show_in_rest'  => true,
             'closed'        => true
            ) );
+           $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'ac_year';
+            if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+            {  $details->add_field( array(
+                    'name'       => __( 'Academic Year', 'inventor-schools' ),
+                    'description'=> 'for eg. 2015-16',
+                    'id'         => $field_id,
+                    'type'              => 'text_small',
+                ) ); }
+
+            $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'workdays_pr';
+            if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+            {  $details->add_field( array(
+                    'name'       => __( 'Number of instructional days for Primary sections', 'inventor-schools' ),
+                    'description'=> 'Number of instructional days (previous academic year) for Primary sections',
+                    'id'         => $field_id,
+                    'type'       => 'text_small',
+                    'attributes' => array(
+                            'type'    => 'number', 'pattern' => '\d*','min'      => 0, ) 
+				 ) ); }
+
+            $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'workdays_upr';
+            if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+            {  $details->add_field( array(
+                    'name'       => __( 'Number of instructional days for Upper Primary sections', 'inventor-schools' ),
+                    'description'=> 'Number of instructional days (previous academic year) for Upper Primary sections',
+                    'id'         => $field_id,
+                    'type'       => 'text_small',
+                    'attributes' => array(
+                            'type'    => 'number', 'pattern' => '\d*','min'      => 0, ) 
+				 ) ); }
+
+            $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'workdays_sec';
+            if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+            {  $details->add_field( array(
+                    'name'       => __( 'Number of instructional days for Secondary sections', 'inventor-schools' ),
+                    'description'=> 'Number of instructional days (previous academic year) for Secondary sections',
+                    'id'         => $field_id,
+                    'type'       => 'text_small',
+                    'attributes' => array(
+                            'type'    => 'number', 'pattern' => '\d*','min'      => 0, ) 
+				 ) ); }
+
+            $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'workdays_hsec';
+            if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+            {  $details->add_field( array(
+                    'name'       => __( 'Number of instructional days for Hr. Secondary secions', 'inventor-schools' ),
+                    'description'=> 'Number of instructional days (previous academic year) for Hr. Secondary secions',
+                    'id'         => $field_id,
+                    'type'       => 'text_small',
+                    'attributes' => array(
+                            'type'    => 'number', 'pattern' => '\d*','min'      => 0, ) 
+				 ) ); }
+
+            $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'schhrschild_upr';
+       	    if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+            {  $details->add_field( array(
+                    'name'       => __( 'Children hours for Upper Primary sections', 'inventor-schools' ),
+                    'descripton' => 'Number of hours Children stay in school (current academic year) for Upper Primary',
+                    'id'         => $field_id,
+                    'type'       => 'text_small',
+                    'attributes' => array(
+                            'type' => 'number',   'pattern' => '\d*', 'min' => 0)
+				 ) ); }
+
           $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'cce';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
 		  {  $details->add_field( array(
@@ -738,7 +900,7 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
 		        'options'           => array (
                      'custom'   => __('2014', 'cmb2'), '15'  => __('2015', 'cmb2'), 'other'  => __('other', 'cmb2')  )
 				 ) ); }
-// 11th Metabox -- Fundings and Inspections
+// 11th Metabox -- Fundings and Grants
       $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'fund';
       $details = new_cmb2_box( array(
             'id'            => $metabox_id,
@@ -1143,6 +1305,16 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                     'School Premises' => __('School Premises', 'cmb2'),'Outside School'  => __('Outside the school premises', 'cmb2'), 
                      'In & Out of school'   => __('Both', 'cmb2'),           'Not Applicable'   => __('Not Applicable', 'cmb2')  )      
 					 )); }
+        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'wsec25p_enrolled';
+        if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
+            {  $details->add_field( array(
+                    'name'       => __( 'Number of Students enrolled under 25% quota', 'inventor-schools' ),
+                    'description'=> 'Number of Students continuing who got admission under 25% quota in previous years',
+                    'id'         => $field_id,
+                    'type'       => 'text_small',
+                    'attributes' => array(
+                            'type'    => 'number',   'pattern'  => '\d*', 'min'      => 0,  )
+                    ) );  }
 // 15th metabox -- Teachers 
         $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Teachers';
         $details = new_cmb2_box( array(
@@ -1172,6 +1344,17 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'attributes' => array(
                         'type'    => 'number',   'pattern'  => '\d*', 'min'      => 0,  )
 				 ) );  }  
+
+        $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tch_nr';
+         if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
+		  {  $details->add_field( array(
+                'name'       => __( 'Teachers with No Response in Gender Column', 'inventor-schools' ),
+                'id'         => $field_id,
+                'type'       => 'text_small',
+                'attributes' => array(
+                        'type'    => 'number',   'pattern'  => '\d*', 'min'      => 0,  )
+				 ) );  }  
+
 		  $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tech_notr';
           if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
 		  {  $details->add_field( array(
@@ -1219,15 +1402,27 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'attributes' => array(
                         'type'    => 'number',   'pattern'  => '\d*', 'min'      => 0,  )
 				 ) );  }  
-			 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'ppteacherno';
-             if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
-		     {  $details->add_field( array(
-                'name'       => __( 'No. of Pre Primary Teachers', 'inventor-schools' ),
-                'id'         => $field_id,
-                'type'       => 'text_small',
-                'attributes' => array(
-                        'type'    => 'number',   'pattern'  => '\d*', 'min'      => 0,  )
-				 ) );  }
+			 $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'ppteacher';
+       	    if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+            {  $details->add_field( array(
+                    'name'       => __( 'No. of Pre-primary teachers', 'inventor-schools' ),
+                    'id'         => $field_id,
+                    'type'       => 'text_small',
+                    'attributes' => array(
+                            'type' => 'number',   'pattern' => '\d*', 'min' => 0)
+				 ) ); }
+
+            $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'schhrstch_pr';
+       	    if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
+            {  $details->add_field( array(
+                    'name'       => __( 'Teacher working hours for primary sections', 'inventor-schools' ),
+                    'descripton' => 'Number of hours teachers stay in school (current academic year) for Primary sections',
+                    'id'         => $field_id,
+                    'type'       => 'text_small',
+                    'attributes' => array(
+                            'type' => 'number',   'pattern' => '\d*', 'min' => 0)
+				 ) ); }
+
 		  $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'headteacher';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
 		  {  $details->add_field( array(
@@ -1254,6 +1449,29 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                 'id'         => $field_id,
                 'type'       => 'text',
 				 ) ); }
+
+// 15.2th metabox -- Teacher's details
+        $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Teachers_details';
+        $details = new_cmb2_box( array(
+            'id'            => $metabox_id,
+            'title'         => __( 'Teacher\'s Details', 'inventor-schools' ),
+            'object_types'  => array( $post_type ),
+            'context'       => 'normal',
+            'priority'      => 'high',
+            'show_in_rest'  => true,
+            'closed'        => true
+           ) );
+
+           for($i=1;$i<=20;$i++) {
+            $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tch_dtls_'.$i;
+            if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
+            {  $details->add_field( array(
+                    'name'       => __( 'Teacher '.$i, 'inventor-schools' ),
+                    'id'         => $field_id,
+                    'type'       => 'text',
+                    ) );  }  
+           }
+	     
            				 
 // 16th Metabox  working time-- new field type				 
 		$metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'work_time';
