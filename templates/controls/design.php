@@ -3,8 +3,14 @@
 /**
   * Including asset dependencies
 **/
- wp_enqueue_style( 'inventor-schools',    plugins_url('inventor-schools/').'assets/styles/frontend.css');
- wp_enqueue_style( 'inventor-schools-w3', plugins_url( 'inventor-schools/').'assets/styles/w3.css' );
+
+ 	wp_enqueue_style( 'inventor-schools-w3', plugins_url( 'inventor-schools/').'assets/styles/w3.css' );
+	wp_enqueue_style( 'inventor-schools-frontend',    plugins_url( 'inventor-schools/').'assets/styles/frontend.css');
+
+	wp_enqueue_script( 'inventor-schools-bootstrap', 	plugins_url( 'inventor-schools/').'assets/js/bootstrap.min.js');
+	wp_enqueue_script( 'inventor-schools-myjs', 	plugins_url( 'inventor-schools/').'assets/js/myjs.js');
+
+	echo "<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js?ver=4.7.5'></script>";
 
 
  // 1st display  The Basic Details
@@ -22,6 +28,8 @@
  $instruction_2          = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'med_instruc2' , true ); 
  $instruction_3          = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'med_instruc3' , true ); 
  // 2nd display About The School
+ $ppsections             = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'ppsections',  true ); 
+ $schhrschild_upr 			 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'schhrschild_upr',  true ); 
  $water_type             = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'watertype',  true ); 
  $electricity            = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'electricity',true );
  $medical_checkup        = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'medchk' ,    true ); 
@@ -77,9 +85,23 @@
  $train_female           = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'prov_g' ,  true ); 
  $place_of_training      = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'trainat' ,  true ); 
  $trained_by             = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'sptrainby' ,  true ); 
- $total_enrolled         = $enrolled_male  + $enrolled_female;
- $total_trained = $train_male+ $train_female;
+//Teacher and students
+	$tec_m             		 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tec_m' ,  true ); 
+	$tec_f             		 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tec_f' ,  true ); 
+	$tch_nr             	 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tch_nr' ,  true ); 
+	$ppteacher             = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'ppteacher' ,  true ); 	
+	$graduate              = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'graduate' ,  true ); 
+	$professional          = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'professional' ,  true ); 
+	$ppstudent          	 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'ppstudent' ,  true ); 
+	$result_primary        = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'res1' ,  true ); 
+	$result_secondary      = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'res2' ,  true ); 
+
+//Teacher's Details
+	$tch_dtls = array();
+
 // Calculations for the display 
+$total_enrolled         = $enrolled_male  + $enrolled_female;
+$total_trained = $train_male+ $train_female;
 $cooks              = $malecooks + $female_cooks; 
 $benfitted_students = $benefitted_girls + $benefitted_boys;
 $classroom_repair   = $major_repair + $minor_repair; 
@@ -91,365 +113,588 @@ $inspection_other   = $inspection3 + $inspection4;
 $members            = $members_male  + $members_female; 
 $parents            = $parents_male+ $parents_female;
 $local_members      = $local_male + $local_female ; 
+$total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
+
+//students calculations
+	//print_r($result_secondary);
+	function counter($arr, $from, $to, $for) {
+		$total=0;
+
+		for($i=$from; $i<$to; $i++) {
+			if($for=='B' && $i%2==0)
+				// echo $arr['class_num_'.$i].'=>'.$arr['total_'.$i].'<br>';
+				$total+=$arr['total_'.$i];
+			else if($for=='G' && $i%2!=0)
+				// echo $arr['class_num_'.$i].'=>'.$arr['total_'.$i].'<br>';
+				$total+=$arr['total_'.$i];
+		}
+		return $total;
+	}
+
+	function ratio($var1, $var2) {
+		
+		$gcd = gmp_gcd($var1, $var2);
+		$var1 = $var1/$gcd;
+		$var2 = $var2/$gcd;
+	
+	return "$var1 : $var2";
+	}
+
+	$primary_b=counter($result_primary,0,10,'B');
+	$primary_g=counter($result_primary,0,10,'G');
+	$sec_b=counter($result_secondary,0,10,'B');
+	$sec_g=counter($result_secondary,0,10,'G');
+	$hrsec_b=counter($result_secondary,10,14,'B');
+	$hrsec_g=counter($result_secondary,10,14,'G');
+
+	$total_boys=	$primary_b + $sec_b + $hrsec_b;
+	$total_girls=	$primary_g + $sec_g + $hrsec_g;
+
+	$primary_stu=$ppstudent + $primary_b + $primary_g;
+	$sec_stu=$sec_b + $sec_g;
+	$hrsec_stu=$hrsec_b + $hrsec_g;
+	
+	$stu_strength =$ppstudent + $total_boys + $total_girls;
+
+//ratio calculations
+	$ratio_bg=explode(":",ratio($total_boys, $total_girls));
+	$ratio_ts=explode(":",ratio($total_teachers, $stu_strength));	
+
+//School Management calculations
+	$smc_members=$members_male + $members_female;
+	$smc_parents=$parents_male + $parents_female;
+	$smc_local=$local_male + $local_female;
+
+//Teacher's Details Calculation
+	for($i=1;$i<=31;$i++) {
+		$tch = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tch_dtls_'.$i ,  true ); 
+		if(!empty($tch)) {
+			array_push($tch_dtls,$tch);
+		}
+	}
+
 ?>
 
 <!-- 1st Display Basic Details-->
 <?php if ( ! empty( $school_code)): ?>
-
-<div class="listing-detail-section family">
-<h2 class="page-header"><?php echo __( 'Basic Details', 'inventor-schools' ); ?></h2>
-  <div class="row tcenter">
-    <div class="col-sm-1 col-lg-2">
-	<i class="fa fa-mortar-board colorred size2"></i><br>
-	<div class="size1">Established <br> in <?php echo $estabalishment_year?></div>
+		<!-- 1st Display Basic Details-->
+	<div class="listing-detail-section family" id="listing-detail-section-basic_details">
+		<h2 class="page-header">Basic Details</h2>
+		<div class="row"> 
+			<div class="col-md-2 col-xs-6">
+				<div class="tp" id="tp1" data-toggle="tooltip" data-placement="top" title="Established">
+					<svg class="icon">
+						<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-074"></use>'; ?>
+					</svg><span class="ename"><?php echo $estabalishment_year?></span>
+				</div>
+			</div>
+			<div class="col-md-2 col-xs-6">
+				<div class="tp" data-toggle="tooltip" data-placement="top" title="Board">
+					<svg class="icon">
+						<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-047"></use>'; ?>
+					</svg><span class="ename"><?php echo $board_secondary?></span>
+				</div>
+			</div>
+			<div class="col-md-2 col-xs-6">
+				<div class="tp" data-toggle="tooltip" data-placement="top" title="Gender">
+					<svg class="icon">
+						<!--<use xlink:href="./assets/svg/icons.svg#icon-129"></use>-->
+						<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-129"></use>'; ?>
+					</svg><span class="ename"><?php echo $gender?></span>
+				</div>
+			</div>
+			<div class="col-md-2 col-xs-6">
+				<div class="tp" data-toggle="tooltip" data-placement="top" title="Management">
+					<svg class="icon">
+						<!--<use xlink:href="./assets/svg/icons.svg#icon-127"></use>-->
+						<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-127"></use>'; ?>
+					</svg><span class="ename"><?php echo $school_management ?></span>
+				</div>
+			</div>
+			<div class="col-md-2 col-xs-6">
+				<div class="tp" data-toggle="tooltip" data-placement="top" title="Classes Offered">
+					<svg class="icon">
+						<!--<use xlink:href="./assets/svg/icons.svg#icon-002"></use>-->
+						<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-002"></use>'; ?>
+					</svg><span class="ename">
+						<?php
+							function getClass($cl) {
+								if($cl==1)
+									return 'st';
+								else if($cl==2)
+									return 'nd';
+								else if($cl==3)
+									return 'rd';
+								else
+									return 'th';
+							}
+						echo $lowest_class ?><sup><?php echo getClass($lowest_class)?></sup> - <?php echo $highest_class?><sup><?php echo getClass($highest_class)?></sup></span>
+				</div>
+			</div>
+			<div class="col-md-2 col-xs-6">
+				<div class="tp" data-toggle="tooltip" data-placement="top" title="Student Teacher Ratio">
+					<svg class="icon">
+						<!--<use xlink:href="./assets/svg/icons.svg#icon-142"></use>-->
+						<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-142"></use>'; ?>
+					</svg><span class="ename">15 : 1*</span>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="col-sm-1 col-lg-2">
-	<i class="fa fa-location-arrow colorgreen size2"></i><br>
-	<div class="size1">Location<br><?php echo $school_location?></div>
+	<!-- 2nd Display About the School-->
+	<div class="listing-detail-section family sec0" id="listing-detail-section-about_school">
+		<h2 class="page-header">About The School</h2>
+		<div class="container ac-container">
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" id="headingOne" role="tab">
+						<h4 class="panel-title"><a class="btn btn-default abc-ac-btn" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Curriculum<i class="fa fa-plus"></i></a></h4>
+					</div>
+					<div class="panel-collapse collapse in" id="collapseOne" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<table class="table">
+								<!--<tr>
+									<td>Streams(after class 10th)</td>
+									<td>Science, Commerce, Arts</td>
+								</tr>-->
+								<tr>
+									<td>Instruction Medium</td>
+									<td><strong><?php echo $instruction_1?></strong>, <?php echo $instruction_2?>, <?php echo $instruction_3?></td>
+								</tr>
+								<tr>
+									<td>Pre-Primary Available</td>
+									<td><?php echo $ppsections?></td>
+								</tr>
+								<tr>
+									<td>Teaching Hours</td>
+									<td><?php echo $schhrschild_upr?> hours</td>
+								</tr>
+								<tr>
+									<td>School Timing*</td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td>&nbsp&nbsp- Mon-Fri</td>
+									<td>8:00 AM - 2:00 PM</td>
+								</tr>
+								<tr>
+									<td>&nbsp&nbsp- Sat-Sun</td>
+									<td>Closed</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading" id="headingTwo" role="tab">
+						<h4 class="panel-title"><a class="btn btn-default abc-ac-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Infrastructure<i class="fa fa-plus"></i></a></h4>
+					</div>
+					<div class="panel-collapse collapse" id="collapseTwo" role="tabpanel" aria-labelledby="headingTwo">
+						<div class="panel-body">
+							<table class="table">
+								<tr>
+									<td>Status of Building</td>
+									<td><?php echo $school_building?></td>
+								</tr>
+								<tr>
+									<td>Total Classrooms</td>
+									<td><?php echo $class_rooms?></td>
+								</tr>
+								<tr>
+									<td>Mid-Day Meal provided</td>
+									<td><?php echo $mid_day_meal?></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading" id="headingThree" role="tab">
+						<h4 class="panel-title"><a class="btn btn-default abc-ac-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Teachers and Students<i class="fa fa-plus"></i></a></h4>
+					</div>
+					<div class="panel-collapse collapse" id="collapseThree" role="tabpanel" aria-labelledby="headingThree">
+						<div class="panel-body">
+							<table class="table">
+								<tr>
+									<td>Total Teachers</td>
+									<td><?php echo $total_teachers?></td>
+								</tr>
+								<tr>
+									<td>&nbsp&nbsp- Graduated</td>
+									<td><?php echo $graduate?></td>
+								</tr>
+								<tr>
+									<td>&nbsp&nbsp- Post-Graduated</td>
+									<td><?php echo $professional?></td>
+								</tr>
+								<tr>
+									<td>Students Strength </td>
+									<td><?php echo $stu_strength?></td>
+								</tr>
+								<!--<tr>
+									<td>Boys/Girls Ratio</td>
+									<td>2 : 1</td>
+								</tr>-->
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="col-sm-1 col-lg-2">
-	<i class="fa fa-user-circle colorblue size2"></i><br>
-	<div class="size1">Gender<br><?php echo $gender?></div>
+	<!-- General Details -->
+	<div class="listing-detail-section family sec0" id="listing-detail-section-general_details">
+		<h2 class="page-header">General Details  </h2>
+		<div class="row">
+			<div class="col-md-4">
+				<canvas id="TchStuRatio"></canvas>
+				<script>
+					var ctx = document.getElementById("TchStuRatio").getContext('2d');
+					//Chart.defaults.global.defaultFontStyle = 'bold';
+					var myChart = new Chart(ctx, {
+					type: 'doughnut',
+					data: {
+					datasets: [{
+							data: [<?php echo $ratio_ts[0]?>, <?php echo $ratio_ts[1]?>],
+							backgroundColor: [
+							'rgba(75, 192, 192, 0.7)',
+							'rgba(153, 102, 255, 0.7)'
+					],
+					}],
+					labels: [
+							'Teacher',
+							'Student'
+					]
+					},
+					options: {
+						legend: {
+								position: 'bottom',
+								labels: {
+									usePointStyle: true,
+									fontSize: 11,
+									//fontStyle: 'normal'
+							}
+						},
+						title: {
+							display: true,
+							text: 'Student Teacher Ratio'
+						}
+					}
+					});
+				</script>
+				<hr class="divider"/>
+			</div>
+			<div class="col-md-4">
+				<canvas id="BGRatio"></canvas>
+				<script>
+					var ctx = document.getElementById("BGRatio").getContext('2d');
+					//Chart.defaults.global.defaultFontStyle = 'bold';
+					var myChart = new Chart(ctx, {
+					type: 'doughnut',
+					data: {
+					datasets: [{
+							data: [<?php echo $ratio_bg[0]?>, <?php echo $ratio_bg[1]?>],
+							backgroundColor: [
+							'rgba(64, 129, 255, 0.7)',
+							'rgba(255, 64, 129, 0.7)'
+					],
+					}],
+					labels: [
+							'Boys',
+							'Girls'
+					]
+					},
+					options: {
+						legend: {
+								position: 'bottom',
+								labels: {
+									usePointStyle: true,
+									fontSize: 11,
+									//fontStyle: 'normal' 
+							}
+						},
+						title: {
+							display: true,
+							text: 'Boys to Girls Ratio'
+						}
+					}
+					});
+				</script>
+				<hr class="divider"/>
+			</div>
+			<div class="col-md-4">
+				<canvas id="StuRatio"></canvas>
+				<script>
+					var ctx = document.getElementById("StuRatio").getContext('2d');
+					var myChart = new Chart(ctx, {
+					type: 'doughnut',
+					data: {
+					datasets: [{
+							data: [<?php echo $primary_stu?>, <?php echo $sec_stu?>, <?php echo $hrsec_stu?>],
+							backgroundColor: [
+							'rgba(198,255,0,0.7)',
+							'rgba(118,255,3,0.7)',
+							'rgba(0,230,118,0.7)'
+					],
+					}],
+					labels: [
+							'Primary',
+							'Secondary',
+							'Hr. Secondary'
+					]
+					},
+					options: {
+						legend: {
+							position: 'bottom',
+							labels: {
+								usePointStyle: true,
+								fontSize: 11,
+								//fontStyle: 'normal' 
+							}
+						},
+						title: {
+							display: true,
+							text: 'Students Distribution'
+						}
+					}
+					});
+				</script>
+			</div>
+		</div>
 	</div>
-	<div class="col-sm-1 col-lg-2">
-	<i class="fa fa-group coloryellow size2"></i><br>
-	<div class="size1">Management<br><?php echo $school_management?></div>
+	<!-- Teacher's Details -->
+	<div class="listing-detail-section family sec0" id="listing-detail-section-teacher_details">
+		<h2 class="page-header">Teacher's Details</h2>
+		<div class="card-container">
+			<div class="prev ctrls">
+					<i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+			<div class="next ctrls">
+					<i class="fa fa-chevron-right" aria-hidden="true"></i></div>
+			<div class="cards">
+				<?php foreach($tch_dtls as $t): ?>
+					<span class="card">
+						<span class="inf name"><strong><?php echo $t['tchname']?></strong></span>
+						<span class="brk gnrl">General</span>
+						<span class="inf">Gender : <strong><?php echo $t['sex']?></strong></span>
+						<span class="inf">Year of Joining : <strong><?php echo $t['yoj']?></strong></span>
+						<span class="inf">Status : <strong><?php echo $t['post_status']?></strong></span>
+						<span class="brk">Qualifications</span>
+						<span class="inf">Academic : <strong><?php echo $t['qual_acad']?></strong></span>
+						<span class="inf">Professional : <strong><?php echo $t['qual_prof']?></strong></span>
+					</span>
+				<?php endforeach; ?>
+			</div>
+		</div>
 	</div>
-	<div class="col-sm-1 col-lg-2">
-	<i class="fa fa-child colorpurple size2"></i><br>
-	<div class="size1">From<br><?php echo $lowest_class ?></div>
+	<!-- Student Results-->
+	<div class="listing-detail-section family sec0" id="listing-detail-section-results">
+		<h2 class="page-header">Results</h2>
+		<canvas id="Results"></canvas>
+		<script type="text/javascript">
+			var ctx = document.getElementById("Results").getContext('2d');
+			Chart.defaults.global.defaultFontStyle = 'bold';
+			var myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+			labels: ["Class 5th", "Class 8th", "Class 10th", "Class 12th"],
+			datasets: [{
+			label: 'Total Students',
+			data: [<?php echo $result_primary[total_8] + $result_primary[total_9]?>, <?php echo $result_secondary[total_4] + $result_secondary[total_5]?>, <?php echo $result_secondary[total_8] + $result_secondary[total_9]?>, <?php echo $result_secondary[total_12] + $result_secondary[total_13]?>],
+			backgroundColor: [
+			'rgba(54, 162, 235, 0.2)',
+			'rgba(54, 162, 235, 0.2)',
+			'rgba(54, 162, 235, 0.2)',
+			'rgba(54, 162, 235, 0.2)',
+			],
+			borderColor: [
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			],
+			borderWidth: 1,
+			},
+			
+			{
+			label: 'Passed',
+			data: [<?php echo $result_primary[total_8] + $result_primary[total_9] - $result_primary[fail_8] - $result_primary[fail_9]?>, <?php echo $result_secondary[total_4] + $result_secondary[total_5] - $result_secondary[fail_4] - $result_secondary[fail_5]?>, <?php echo $result_secondary[total_8] + $result_secondary[total_9] - $result_secondary[fail_8] - $result_secondary[fail_9]?>, <?php echo $result_secondary[total_12] + $result_secondary[total_13] - $result_secondary[fail_12] - $result_secondary[fail_13]?>],
+			backgroundColor: [
+			'rgba(75, 192, 192, 0.2)',
+			'rgba(75, 192, 192, 0.2)',
+			'rgba(75, 192, 192, 0.2)',
+			'rgba(75, 192, 192, 0.2)',
+			],
+			borderColor: [
+			'rgba(75, 192, 192, 1)',
+			'rgba(75, 192, 192, 1)',
+			'rgba(75, 192, 192, 1)',
+			'rgba(75, 192, 192, 1)',
+			],
+			borderWidth: 1
+			},
+			
+			// {
+			// label: 'More than 60%',
+			// data: [<?php echo $result_primary[above60_8] + $result_primary[above60_9]?>, <?php echo $result_secondary[above60_4] + $result_secondary[above60_5]?>, <?php echo $result_secondary[above60_8] + $result_secondary[above60_9]?>, <?php echo $result_secondary[above60_12] + $result_secondary[above60_13]?>],
+			// backgroundColor: [
+			// 'rgba(255, 206, 86, 0.2)',
+			// 'rgba(255, 206, 86, 0.2)',
+			// 'rgba(255, 206, 86, 0.2)',
+			// 'rgba(255, 206, 86, 0.2)',
+			// ],
+			// borderColor: [
+			// 'rgba(255, 206, 86, 1)',
+			// 'rgba(255, 206, 86, 1)',
+			// 'rgba(255, 206, 86, 1)',
+			// 'rgba(255, 206, 86, 1)',
+			// ],
+			// borderWidth: 1
+			// },
+			
+			{
+			label: 'Fail',
+			data: [<?php echo $result_primary[fail_8] + $result_primary[fail_9]?>, <?php echo $result_secondary[fail_4] + $result_secondary[fail_5]?>, <?php echo $result_secondary[fail_8] + $result_secondary[fail_9]?>, <?php echo $result_secondary[fail_12] + $result_secondary[fail_13]?>],
+			backgroundColor: [
+			'rgba(255, 99, 132, 0.2)',
+			'rgba(255, 99, 132, 0.2)',
+			'rgba(255, 99, 132, 0.2)',
+			'rgba(255, 99, 132, 0.2)',
+			],
+			borderColor: [
+			'rgba(255, 99, 132, 1)',
+			'rgba(255, 99, 132, 1)',
+			'rgba(255, 99, 132, 1)',
+			'rgba(255, 99, 132, 1)',
+			],
+			borderWidth: 1
+			}
+			
+			]
+			},
+			options: {
+			scales: {
+			yAxes: [{
+			ticks: {
+			fontStyle: 'bold',
+			beginAtZero:true
+			}
+			}]
+			}
+			}
+			});
+			
+		</script>
 	</div>
-	<div class="col-sm-1 col-lg-2">
-	<i class="fa fa-male colorbrown size2"></i><br>
-	<div class="size1">To <br><?php echo $highest_class?></div>
+	<!-- School Management Display-->
+	<div class="listing-detail-section sec0" id="listing-detail-section-school_management">
+		<h2 class="page-header">School Management</h2>
+		<div class="listing-detail-contact smc">
+			<div class="row">
+				<div class="col-md-6">
+					<ul>
+						<li><strong class="key">Total Members</strong><span class="value"><?php echo $smc_members ?></span></li>
+						<li><strong class="key">Parents Involved</strong><span class="value"><?php echo $smc_parents ?></span></li>
+					</ul>
+				</div>
+				<!-- /.col-*-->
+				<div class="col-md-6">
+					<ul>
+						<li><strong class="key">Local Authorities</strong><span class="value"><?php echo $smc_local ?></span></li>
+						<li><strong class="key">Meetings Conducted</strong><span class="value"><?php echo $meetings ?></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
-    </div>
-	<div class="row tcenter">
-    <div class="col-sm-1 col-lg-2">
-	<i class="fa fa-bank colorpurple size2"></i><br>
-	<div class="size1">Type<br><?php echo $type_of_school?></div>
+	<!-- 3rd Display -- Other Features-->
+	<div class="listing-detail-section family sec0" id="listing-detail-section-facilities">
+		<h2 class="page-header">Facilities</h2>
+		<div class="row">
+			<?php if($library=='Yes'): ?> 
+				<div class="col-md-2 col-xs-6">
+					<div class="fac">
+						<svg class="icon">
+							<!--<use xlink:href="./assets/svg/icons.svg#icon-007"> </use>-->
+							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-007"></use>'; ?>
+						</svg><span class="ename">Library</span>
+					</div>
+				</div>
+			<?php endif; ?>
+			<?php if($labs=='Yes'): ?>
+				<div class="col-md-2 col-xs-6">
+					<div class="fac">
+						<svg class="icon">
+							<!--<use xlink:href="./assets/svg/icons.svg#icon-108"> </use>-->
+							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-108"></use>'; ?>
+						</svg><span class="ename">Labs</span>
+					</div>
+				</div>
+			<?php endif; ?>
+			<?php if($computer_lab=='Yes'): ?>
+				<div class="col-md-2 col-xs-6">
+					<div class="fac">
+						<svg class="icon">
+							<!--<use xlink:href="./assets/svg/icons.svg#icon-076"> </use>-->
+							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-076"></use>'; ?>
+						</svg><span class="ename">Computers</span>
+					</div>
+				</div>
+			<?php endif; ?>
+			<?php if($playground=='Yes'): ?>
+				<div class="col-md-2 col-xs-6">
+					<div class="fac">
+						<svg class="icon">
+							<!--<use xlink:href="./assets/svg/icons.svg#icon-175"> </use>-->
+							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-175"></use>'; ?>
+						</svg><span class="ename">Playground</span>
+					</div>
+				</div>
+			<?php endif; ?>
+			<?php if($playground=='Yes'): ?>
+				<div class="col-md-2 col-xs-6">
+					<div class="fac">
+						<svg class="icon">
+							<!--<use xlink:href="./assets/svg/icons.svg#icon-037"> </use>-->
+							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-037"></use>'; ?>
+						</svg><span class="ename">Extra Curricular</span>
+					</div>
+				</div>
+			<?php endif; ?>
+			<?php if($buses=='Yes'): ?>
+				<div class="col-md-2 col-xs-6">
+					<div class="fac">
+						<svg class="icon">
+							<!--<use xlink:href="./assets/svg/icons.svg#icon-016"> </use>-->
+							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-016"></use>'; ?>
+						</svg><span class="ename">Buses</span>
+					</div>
+				</div>
+			<?php endif; ?>
+		</div>
 	</div>
-	<div class="col-sm-1 col-lg-2">
-	<i class="fa fa-book colorred size2"></i><br>
-	<div class="size1"><?php echo $board_secondary?><br>For 10th</div>
+	<!-- 4th Display -- Contact-->
+	<div class="listing-detail-section sec0" id="listing-detail-section-contact_us">
+		<h2 class="page-header">Contact*</h2>
+		<div class="listing-detail-contact">
+			<div class="row">
+				<div class="col-md-6">
+					<ul>
+						<li class="email"><strong class="key">Person</strong><span class="value">Mr. xyz</span></li>
+					</ul>
+					<ul>
+						<li class="email"><strong class="key">E-mail</strong><span class="value"><a href="mailto:sample@example.com">sample@example.com</a></span></li>
+						<li class="website"><strong class="key">Website</strong><span class="value"><a href="http://example.com" target="_blank">http://example.com</a></span></li>
+						<li class="phone"><strong class="key">Phone</strong><span class="value"><a href="tel:+919898989898">+91 9898989898 </a><br/><a href="tel:+919876543210">+91 9876543210</a><br/><a href="tel:01112012045">011 120 120 45</a></span></li>
+					</ul>
+				</div>
+				<!-- /.col-*-->
+				<div class="col-md-6">
+					<ul>
+						<li class="address"><strong class="key">Address</strong><span class="value">Address<br/>locality<br/>pincode</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="col-sm-1 col-lg-2">
-	 <span class="glyphicon glyphicon-book coloryellow size2"></span><br>
-	<div class="size1"><?php echo $board_higher_secondary?><br>for 12th</div>
-	</div>
-	<div class="col-sm-1 col-lg-2">
-	<i class="fa fa-edit colorbrown size2"></i><br>
-	<div class="size1">Medium Of <br>Instruction 1<br><?php echo $instruction_1?></div>
-	</div>
-	<div class="col-sm-1 col-lg-2">
-	<i class="fa fa-pencil-square colorblue size2"></i><br>
-	<div class="size1">Medium Of <br>Instruction 2<br><?php echo $instruction_2?></div>
-	</div>
-	 <div class="col-sm-1 col-lg-2">
-	<i class="fa fa-pencil colorgreen size2"></i><br>
-	<div class="size1">Medium Of <br>Instruction 3<br><?php echo $instruction_3?></div>
-	</div>
-	</div>
- </div> 
- <!-- 2nd Display About the School -->
-<div class="listing-detail-section family" >
-<h2 class="page-header"><?php echo __( 'About The School', 'inventor-schools' ); ?></h2>
-  <div class="container">
-<!-- 1st Pannel-->
-<div class="col-sm-8 col-lg-9">
-    <div class="panel-group" id="accordion">
-     <div class="panel panel-default">
-	 <div class="bgblue">
-       <div class="panel-heading">
-	     <h4 class="panel-title lcenter" >
-           <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-		   <span style='font-size:24px'>Basic Facilities</span></a>
-         </h4>
-       </div>
-	  </div>
-       <div id="collapse1" class="panel-collapse collapse in">
-	      <div class="panel-body tcenter">
-		  <div class="col-lg-2 col-sm-2"></div>
-          <div class="w3-card-4 w3-light-gray tcenter col-lg-8 col-sm-6">
-            <div class="w3-container tcenter ">
-			<h3>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">1.</div>
-			  <div class="col-sm-6 col-lg-8  ">Source of drinking water :</div>
-			  <div class="col-sm-1 col-lg-3 colorblue"> <?php echo $water_type?></div>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">2.</div>
-			  <div class="col-sm-6 col-lg-8  ">Electricity Available :</div>
-			  <div class="col-sm-1 col-lg-2 colorblue"><?php echo $electricity?></div>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">3.</div>
-			  <div class="col-sm-6 col-lg-8  ">Medical checkup  :</div>
-			  <div class="col-sm-1 col-lg-2 colorblue"><?php echo $medical_checkup?></div>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">4.</div>
-			  <div class="col-sm-6 col-lg-8  ">Midday meal Available :</div>
-			  <div class="col-sm-1 col-lg-2 colorblue"><?php echo $mid_day_meal?></div>
-			</div><br>
-			<div class="row" >
-			<h4>
-              <div class="col-sm-2 col-lg-3"> Food from: </div>
-			  <div class="col-sm-2 col-lg-3 colorblue "><?php echo $food_from?></div>
-			   <div class="col-sm-2 col-lg-2"> Kitchen: </div>
-			  <div class="col-sm-2 col-lg-3 colorblue "><?php echo $kitchen_status?></div>
-			 </h4>
-			</div>
-		   <div class="row">
-		   <h4>
-              <div class="col-sm-2 col-lg-3"> Cooks: </div>
-			  <div class="col-sm-2 col-lg-3 colorblue "><?php echo $cooks?></div>
-			   <div class="col-sm-2 col-lg-2">Students:</div>
-			  <div class="col-sm-2 col-lg-2 colorblue "><?php echo $benfitted_students?></div>
-			</div>
-			</h4>
-			 </h3> 
-			</div>
-          </div>
-		   </div>
-		  </div>
-	 </div>
-     <div class="panel panel-default">
-	 <div class="bgblue">
-       <div class="panel-heading">
-         <h4 class="panel-title lcenter" >
-           <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-		   <span style='font-size:24px'>Infrastructure</span></a>
-         </h4>
-       </div></div>
-       <div id="collapse2" class="panel-collapse collapse">
-	      <div class="panel-body tcenter">
-          <div class="col-lg-2 col-sm-2"></div>
-          <div class="w3-card-4 w3-light-gray tcenter col-lg-8 col-sm-6">
-            <div class="w3-container tcenter ">
-			<h3>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">1.</div>
-			  <div class="col-sm-6 col-lg-7  ">Status of Building :</div>
-			  <div class="col-sm-1 col-lg-3 colorblue"> <?php echo $school_building?></div>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">2.</div>
-			  <div class="col-sm-6 col-lg-7  ">No. of Classrooms :</div>
-			  <div class="col-sm-1 col-lg-3 colorblue"><?php echo $class_rooms?></div>
-			</div>
-			<div class="row">
-			<h4>
-              <div class="col-sm-1 col-lg-1"></div>
-			  <div class="col-sm-6 col-lg-7  ">Class-room requiring repair:</div>
-			  <div class="col-sm-1 col-lg-3 colorblue"><?php echo $classroom_repair?></div>
-			</h4>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">3.</div>
-			  <div class="col-sm-6 col-lg-7  ">Total Toilets:</div>
-			  <div class="col-sm-1 col-lg-3 colorblue"><?php echo $toilets?></div>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">4.</div>
-			  <div class="col-sm-6 col-lg-7 ">Boundary Wall:</div>
-			  <div class="col-sm-1 col-lg-3 colorblue padng"><?php echo $boundary_wall ?></div>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">5.</div>
-			  <div class="col-sm-6 col-lg-7  ">Playground Available:</div>
-			  <div class="col-sm-1 col-lg-3 colorblue"><?php echo $playground?></div>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">6.</div>
-			  <div class="col-sm-6 col-lg-7  ">Ramps Available:</div>
-			  <div class="col-sm-1 col-lg-3 colorblue"><?php echo $ramps?></div>
-			</div>
-			</h3> 
-			</div>
-          </div>
-		   </div>
-		  </div>
-	 </div>
-	 <div class="panel panel-default">
-	 <div class="bgblue">
-       <div class="panel-heading">
-         <h4 class="panel-title lcenter " >
-           <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-		   <span style='font-size:24px'>Curriculum</span></a>
-         </h4>
-       </div></div>
-       <div id="collapse3" class="panel-collapse collapse">
-	      <div class="panel-body tcenter">
-          <div class="col-lg-2 col-sm-2"></div>
-          <div class="w3-card-4 w3-light-gray tcenter col-lg-8 col-sm-6">
-            <div class="w3-container tcenter ">
-			<h3>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">1.</div>
-			  <div class="col-sm-6 col-lg-8  ">CCE System Implemented :</div>
-			  <div class="col-sm-1 col-lg-2 colorblue"> <?php echo $cce_system?></div>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">2.</div>
-			  <div class="col-sm-6 col-lg-8  ">Student Records Maintained:</div>
-			  <div class="col-sm-1 col-lg-2 colorblue"><?php echo $record_maintained?></div>
-			</div>
-			<div class="row">
-			<h4>
-              <div class="col-sm-1 col-lg-1"></div>
-			  <div class="col-sm-6 col-lg-8  ">Records Shared with parents:</div>
-			  <div class="col-sm-1 col-lg-2 colorblue"><?php echo $record_shared?></div>
-			</h4>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">3.</div>
-			  <div class="col-sm-6 col-lg-8  ">Libarary Available :</div>
-			  <div class="col-sm-1 col-lg-2 colorblue"><?php echo $library?></div>
-			</div>
-			<div class="row" >
-			<h4>
-              <div class="col-sm-2 col-lg-4"> No.of Books: </div>
-			  <div class="col-sm-2 col-lg-1 colorblue "><?php echo $books?></div>
-			  <div class="col-sm-2 col-lg-5">Record of books: </div>
-			  <div class="col-sm-2 col-lg-1 colorblue"><?php echo $record?></div>
-			 </h4>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">4.</div>
-			  <div class="col-sm-6 col-lg-8  ">Computer Lab Available:</div>
-			  <div class="col-sm-1 col-lg-2 colorblue"><?php echo $computer_lab?></div>
-			</div>
-			<div class="row">
-              <div class="col-sm-1 col-lg-1">5.</div>
-			  <div class="col-sm-6 col-lg-8  ">No. of computers:</div>
-			  <div class="col-sm-1 col-lg-2 colorblue"><?php echo $total_computers?></div>
-			</div>
-			 </h3> 
-			</div>
-          </div>
-		   </div>
-		  </div>
-	 </div>
-	</div>
-   </div>
-  </div>
-</div>
-<!-- 3rd Display -- Other Features -->
-<div class="listing-detail-section family">
-<h2 class="page-header"><?php echo __( 'Other Features', 'inventor-schools' ); ?></h2>
-<div class="row">
-<div class="col-sm-1 col-lg-1"></div>
-<div class="cardcontain col-sm-3 col-lg-4">
-<div class="card">
-    <div class="front">
-     <br><i class="fa fa-money colorpurple size2 tcenter"></i>
-	 <h3>Fundings <br>And<br> Grants</h3>
-    </div>
-   <div class="back">
-     <h2 class="tcenter "> Funds & Grants </h2>
-     <br>     
-	 <div class="row">
-      <div class="col-sm-4 col-lg-6 size1">Total Grant Receipt:</div>
-	  <div class="col-sm-4 col-lg-6 size2"><?php echo $total_receipt?></div>
-	  </div><br>
-	  <div class="row">
-	  <div class="col-sm-4 col-lg-6 size1">Total Grant Expenditure:</div>
-	  <div class="col-sm-4 col-lg-6 size2"><?php echo $total_expenditure?></div>
-      </div> 
-   </div>
-</div></div>
-<div class="col-sm-2 col-lg-2"></div>
-<div class="cardcontain  col-sm-3 col-lg-4">
-<div class="card">
-    <div class="front">
-     <br><i class="fa fa-institution coloryellow size2 tcenter"></i>
-	 <h3>Inspections<br> In The<br> School</h3>
-    </div>
-   <div class="back">
-	  <h2 class="tcenter">Inspections</h2>
-	  <br>
-      <div class="row">
-      <div class="col-sm-4 col-lg-6 size1">Inspection By Officers :</div>
-	  <div class="col-sm-4 col-lg-6 size2"><?php echo $inspection_officer?></div>
-	  </div><br>
-	  <div class="row">
-	  <div class="col-sm-4 col-lg-6 size1">Inspections By Others:</div>
-	  <div class="col-sm-4 col-lg-6 size2"><?php echo $inspection_other?></div>
-      </div> 
-   </div>
-</div>
-</div>
-</div>
-<br>
-<div class="row">
-<div class="col-sm-1 col-lg-1"></div>
-<div class="cardcontain col-sm-3 col-lg-4">
-<div class="card">
-    <div class="front">
-      <br><i class="fa fa-group colorpurple tcenter"></i>
-	  <div><h2>School Management Council</h2></div>
-    </div>
-   <div class="back">
-     <h3>School Management Councils</h3>
-      <div class="row">
-      <div class="col-sm-6 col-lg-8 size1">1.SMCs in School Development:</div>
-	  <div class="col-sm-2 col-lg-2 size1"><?php echo $SMC_development?></div>
-	  </div>
-	  <div class="row">
-      <div class="col-sm-6 col-lg-8 size1">2.Total Members:</div>
-	  <div class="col-sm-2 col-lg-2 size1"><?php echo $members?></div>
-	  </div>
-	  <div class="row">
-      <div class="col-sm-6 col-lg-8 size1">3.Parents Members:</div>
-	  <div class="col-sm-2 col-lg-2 size1"><?php echo $parents?></div>
-	  </div>
-	  <div class="row">
-	  <div class="col-sm-6 col-lg-8 size1">4.Local Authorities:</div>
-	  <div class="col-sm-2 col-lg-2 size1"><?php echo $local_members?></div>
-      </div>
-	  <div class="row">
-	  <div class="col-sm-6 col-lg-8 size1">5.SMCs Meetings in a year:</div>
-	  <div class="col-sm-2 col-lg-2 size1"><?php echo $meetings?></div>
-      </div> 	  
-   </div>
-</div></div>
-<div class="col-sm-2 col-lg-2"></div>
-<div class="cardcontain  col-sm-3 col-lg-4">
-<div class="card">
-    <div class="front">
-     <br><i class="fa fa-graduation-cap colorred size2 tcenter"></i>
-	 <h2>Special <br>Trainings</h2>
-    </div>
-   <div class="back">
-   <h3> Special Trainings</h3>
-     <div class="row">
-      <div class="col-sm-5 col-lg-7 size1">1.Enrolled Children:</div>
-	  <div class="col-sm-3 col-lg-3 size1"><?php echo $total_enrolled?></div>
-	  </div>
-	  <div class="row">
-      <div class="col-sm-5 col-lg-7 size1">2.Children provided the training:</div>
-	  <div class="col-sm-3 col-lg-3 size1 padng"><?php echo $total_trained?></div>
-	  </div>
-	  <div class="row">
-      <div class="col-sm-5 col-lg-7 size1">3.Type Of Training:</div>
-	  <div class="col-sm-3 col-lg-3 size1 padng"><?php echo $type_of_training?></div>
-	  </div>
-	  <div class="row">
-	  <div class="col-sm-5 col-lg-7 size1">4.Teachers alloted:</div>
-	  <div class="col-sm-3 col-lg-3 size1 padng"><?php echo $trained_by?></div>
-      </div> 
-	  <div class="row">
-	  <div class="col-sm-5 col-lg-7 size1">5.Place of Training:</div>
-	  <div class="col-sm-3 col-lg-3 size1 padng"><?php echo $place_of_training?></div>
-      </div>
-   </div>
-</div>
-</div>
-</div>
-</div>
-<!-- 4th Display -- Teaches & Students --> 
-	<!-- /.listing-detail-section -->
 	<?php endif; ?>
 <?php do_action( 'inventor_after_listing_detail_school_aschool' ); ?>
