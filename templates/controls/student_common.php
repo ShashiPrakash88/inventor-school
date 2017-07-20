@@ -12,7 +12,7 @@
 <table>
     <thead>
         <tr>
-		        <th><?php echo __( 'Class-Boys/Girls', 'inventor-schools' ); ?></th>
+		    <th><?php echo __( 'Class-Boys/Girls', 'inventor-schools' ); ?></th>
             <th><?php echo __( 'Disabled', 'inventor-schools' ); ?></th>
             <th><?php echo __( 'SC', 'inventor-schools' ); ?></th>
             <th><?php echo __( 'ST', 'inventor-schools' ); ?></th>

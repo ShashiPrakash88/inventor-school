@@ -151,14 +151,15 @@
   position: relative;
   white-space: normal;
   width: 12rem !important;
-  height: 15.2rem !important;
+  height: 15.5rem !important;
   display: inline-block;
   margin: .5rem;
   overflow: auto;
 	transition: all 500ms ease-in-out;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
   .card .inf {
-    display: block; }
+    display: block;
+    font-size: 0.9rem; }
   .card .brk {
     color: black;
     display: block;
@@ -181,7 +182,7 @@
   .card .gnrl:before, .card .gnrl:after {
     width: 3.2rem; }
   .card .name {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: black; }
   .card:hover {
     z-index: 1;

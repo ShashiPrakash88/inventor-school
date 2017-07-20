@@ -7,3 +7,20 @@
   senrb8
   senrg8
   place_id
+  tech_notr // teachers not registered
+  SPLTRG_MATERIAL_YN // special material provided
+  SPLTRG_TOTEV // Teachers for special training
+
+//Proper value Missing
+ppsections
+schhrschild_upr //Teaching hours
+mealsinsch //mid day meal
+
+//Missing information in main dataset
+  water
+  cooks_m, cooks_f
+  benefit_b, benefit_g
+  mealserv
+  tlmr, tlme // grant for teachers
+  commem // inspection by community members
+  supoffic // inspection by supervisory official

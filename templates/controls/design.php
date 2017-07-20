@@ -97,7 +97,8 @@
 	$result_secondary      = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'res2' ,  true ); 
 
 //Teacher's Details
-	$tch_dtls = array();
+	$tch_dtls 						 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tch_dtls' ,  true ); 
+	//$test      = get_post_meta( get_the_ID(), 'wiki_test_repeat_group' ,  true ); 
 
 // Calculations for the display 
 $total_enrolled         = $enrolled_male  + $enrolled_female;
@@ -164,14 +165,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 	$smc_members=$members_male + $members_female;
 	$smc_parents=$parents_male + $parents_female;
 	$smc_local=$local_male + $local_female;
-
-//Teacher's Details Calculation
-	for($i=1;$i<=31;$i++) {
-		$tch = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tch_dtls_'.$i ,  true ); 
-		if(!empty($tch)) {
-			array_push($tch_dtls,$tch);
-		}
-	}
 
 ?>
 
@@ -253,10 +246,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 					<div class="panel-collapse collapse in" id="collapseOne" role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body">
 							<table class="table">
-								<!--<tr>
-									<td>Streams(after class 10th)</td>
-									<td>Science, Commerce, Arts</td>
-								</tr>-->
 								<tr>
 									<td>Instruction Medium</td>
 									<td><strong><?php echo $instruction_1?></strong>, <?php echo $instruction_2?>, <?php echo $instruction_3?></td>
@@ -331,10 +320,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 									<td>Students Strength </td>
 									<td><?php echo $stu_strength?></td>
 								</tr>
-								<!--<tr>
-									<td>Boys/Girls Ratio</td>
-									<td>2 : 1</td>
-								</tr>-->
 							</table>
 						</div>
 					</div>
@@ -471,18 +456,20 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 			<div class="next ctrls">
 					<i class="fa fa-chevron-right" aria-hidden="true"></i></div>
 			<div class="cards">
-				<?php foreach($tch_dtls as $t): ?>
-					<span class="card">
-						<span class="inf name"><strong><?php echo $t['tchname']?></strong></span>
-						<span class="brk gnrl">General</span>
-						<span class="inf">Gender : <strong><?php echo $t['sex']?></strong></span>
-						<span class="inf">Year of Joining : <strong><?php echo $t['yoj']?></strong></span>
-						<span class="inf">Status : <strong><?php echo $t['post_status']?></strong></span>
-						<span class="brk">Qualifications</span>
-						<span class="inf">Academic : <strong><?php echo $t['qual_acad']?></strong></span>
-						<span class="inf">Professional : <strong><?php echo $t['qual_prof']?></strong></span>
-					</span>
-				<?php endforeach; ?>
+				<?php if(is_array($tch_dtls)): ?>
+					<?php foreach($tch_dtls as $t): ?>
+						<span class="card">
+							<span class="inf name"><strong><?php echo $t['tchname']?></strong></span>
+							<span class="brk gnrl">General</span>
+							<span class="inf">Gender : <strong><?php echo $t['sex']?></strong></span>
+							<span class="inf">Year of Joining : <strong><?php echo $t['yoj']?></strong></span>
+							<span class="inf">Status : <strong><?php echo $t['post_status']?></strong></span>
+							<span class="brk">Qualifications</span>
+							<span class="inf">Academic : <strong><?php echo $t['qual_acad']?></strong></span>
+							<span class="inf">Professional : <strong><?php echo $t['qual_prof']?></strong></span>
+						</span>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
@@ -614,7 +601,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 				<div class="col-md-2 col-xs-6">
 					<div class="fac">
 						<svg class="icon">
-							<!--<use xlink:href="./assets/svg/icons.svg#icon-007"> </use>-->
 							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-007"></use>'; ?>
 						</svg><span class="ename">Library</span>
 					</div>
@@ -624,7 +610,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 				<div class="col-md-2 col-xs-6">
 					<div class="fac">
 						<svg class="icon">
-							<!--<use xlink:href="./assets/svg/icons.svg#icon-108"> </use>-->
 							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-108"></use>'; ?>
 						</svg><span class="ename">Labs</span>
 					</div>
@@ -634,7 +619,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 				<div class="col-md-2 col-xs-6">
 					<div class="fac">
 						<svg class="icon">
-							<!--<use xlink:href="./assets/svg/icons.svg#icon-076"> </use>-->
 							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-076"></use>'; ?>
 						</svg><span class="ename">Computers</span>
 					</div>
@@ -644,7 +628,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 				<div class="col-md-2 col-xs-6">
 					<div class="fac">
 						<svg class="icon">
-							<!--<use xlink:href="./assets/svg/icons.svg#icon-175"> </use>-->
 							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-175"></use>'; ?>
 						</svg><span class="ename">Playground</span>
 					</div>
@@ -654,7 +637,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 				<div class="col-md-2 col-xs-6">
 					<div class="fac">
 						<svg class="icon">
-							<!--<use xlink:href="./assets/svg/icons.svg#icon-037"> </use>-->
 							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-037"></use>'; ?>
 						</svg><span class="ename">Extra Curricular</span>
 					</div>
@@ -664,7 +646,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 				<div class="col-md-2 col-xs-6">
 					<div class="fac">
 						<svg class="icon">
-							<!--<use xlink:href="./assets/svg/icons.svg#icon-016"> </use>-->
 							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-016"></use>'; ?>
 						</svg><span class="ename">Buses</span>
 					</div>
