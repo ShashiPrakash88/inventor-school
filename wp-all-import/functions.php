@@ -30,7 +30,7 @@
 		  case 27 : echo 'Lepcha'; break;
 		  case 28 : echo 'Limboo'; break;
 		  case 29 : echo 'French'; break;
-		  case 98 : echo 'Other'; break;
+		  case 98 : echo ''; break;
 		  case 99 : echo 'Other'; break;
 		}
 	}
