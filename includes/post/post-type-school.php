@@ -308,6 +308,7 @@
         //medium of instructions
         
         $med_ins_array = array(
+            ''              =>__('None','cmb2'),
             'Assamese'      =>__('Assamese','cmb2'),
             'Bengali'       =>__('Bengali','cmb2'),
             'Gujarati'      =>__('Gujarati','cmb2'),
@@ -348,7 +349,7 @@
                 'id'         => $field_id,
                 'type'       => 'select',
 			    'show_option_none' => false,
-	            'default'    => 'English', 
+	            'default'    => '', 
 		        'options'    => $med_ins_array   
 				   )); }
         $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'med_instruc2';
@@ -359,7 +360,7 @@
                 'id'         => $field_id,
                 'type'       => 'select',
 			    'show_option_none' => false,
-	            'default'    => 'English', 
+	            'default'    => '', 
 		        'options'    => $med_ins_array   
 				   )); }
         $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'med_instruc3';
@@ -370,7 +371,7 @@
                 'id'         => $field_id,
                 'type'       => 'select',
 			    'show_option_none' => false,
-	            'default'    => 'English', 
+	            'default'    => '', 
 		        'options'    => $med_ins_array   
 				   )); }
         $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'med_instruc4';
@@ -381,7 +382,7 @@
                 'id'         => $field_id,
                 'type'       => 'select',
 			    'show_option_none' => false,
-	            'default'    => 'English', 
+	            'default'    => '', 
 		        'options'    => $med_ins_array   
 				   )); }
 // Adding predefined metaboxes 3rd, 4th, 5th , 6th ,7th (metabox number)
@@ -419,8 +420,18 @@
 // Altering metabox contact
 	$adrs_metabox = CMB2_Boxes::get( INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'contact' );
          $adrs_metabox->add_field( array(
-            'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'distname',
-            'name'       => __( 'District Name','inventor-schools'),
+            'id'         => INVENTOR_LISTING_PREFIX  . 'phone2',
+            'name'       => __( 'Phone 2','inventor-schools'),
+            'type'       => 'text_medium',
+         ) ); 
+         $adrs_metabox->add_field( array(
+            'id'         => INVENTOR_LISTING_PREFIX  . 'phone3',
+            'name'       => __( 'Phone 3','inventor-schools'),
+            'type'       => 'text_medium',
+         ) ); 
+         $adrs_metabox->add_field( array(
+            'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'city',
+            'name'       => __( 'City Name','inventor-schools'),
             'type'       => 'text_medium',
          ) ); 
 		  $adrs_metabox->add_field( array(
@@ -434,8 +445,8 @@
             'type'       => 'text_medium'
          ) ); 
 		  $adrs_metabox->add_field( array(
-            'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'village',
-            'name'       => __( 'Village Name','inventor-schools'),
+            'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'locality',
+            'name'       => __( 'Locality Name','inventor-schools'),
             'type'       => 'text_medium'
          ) );
          $adrs_metabox->add_field( array(
@@ -1544,9 +1555,9 @@ $metabox_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'Curriculum';
                     'type' => 'text',
                 ) );
         $details->add_group_field( $group_field_id, array(
-                    'name' => 'Main Taught Subject 1',
+                    'name' => 'Main Taught Subject',
                     'id'   => 'main_taught1',
-                    'type' => 'hidden',
+                    'type' => 'text',
                 ) );
         $details->add_group_field( $group_field_id, array(
                     'name' => 'Main Taught Subject 2',

@@ -1,17 +1,16 @@
 <?php do_action( 'inventor_listing_detail_school_aschool' ); ?>
+<?php if ( get_post_type() == 'school'): ?>
 <?php 
 /**
   * Including asset dependencies
 **/
-
  	wp_enqueue_style( 'inventor-schools-w3', plugins_url( 'inventor-schools/').'assets/styles/w3.css' );
 	wp_enqueue_style( 'inventor-schools-frontend',    plugins_url( 'inventor-schools/').'assets/styles/frontend.css');
 
 	wp_enqueue_script( 'inventor-schools-bootstrap', 	plugins_url( 'inventor-schools/').'assets/js/bootstrap.min.js');
 	wp_enqueue_script( 'inventor-schools-myjs', 	plugins_url( 'inventor-schools/').'assets/js/myjs.js');
 
-	echo "<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js?ver=4.7.5'></script>";
-
+	echo "<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js'></script>";
 
  // 1st display  The Basic Details
  $school_code            = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'schcode', true ); 
@@ -98,7 +97,17 @@
 
 //Teacher's Details
 	$tch_dtls 						 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'tch_dtls' ,  true ); 
-	//$test      = get_post_meta( get_the_ID(), 'wiki_test_repeat_group' ,  true ); 
+//contact Details
+	$cnt_person = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'person' ,  true ); 
+	$cnt_email = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'email' ,  true ); 
+	$cnt_website = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'website' ,  true ); 
+	$cnt_phone = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'phone' ,  true ); 
+	$cnt_phone2 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'phone2' ,  true );
+	$cnt_phone3 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'phone3' ,  true );
+	$cnt_address = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'title' ,  true );
+	$cnt_locality = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . INVENTOR_SCHOOL_PREFIX . 'locality' ,  true );
+	$cnt_city = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . INVENTOR_SCHOOL_PREFIX . 'city' ,  true );
+	$cnt_pincode = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . INVENTOR_SCHOOL_PREFIX . 'pin' ,  true );
 
 // Calculations for the display 
 $total_enrolled         = $enrolled_male  + $enrolled_female;
@@ -132,9 +141,18 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 		return $total;
 	}
 
+	function GCD($num1, $num2) {
+			while ($num2 != 0){
+				$t = $num1 % $num2;
+				$num1 = $num2;
+				$num2 = $t;
+			}
+		return $num1;
+	}
+
 	function ratio($var1, $var2) {
 		
-		$gcd = gmp_gcd($var1, $var2);
+		$gcd = GCD($var1, $var2);
 		$var1 = $var1/$gcd;
 		$var2 = $var2/$gcd;
 	
@@ -170,12 +188,37 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 
 <!-- 1st Display Basic Details-->
 <?php if ( ! empty( $school_code)): ?>
-		<!-- 1st Display Basic Details-->
+	<script>
+
+		//chart global proprties
+		Chart.defaults.global.animation.easing = 'easeInOutExpo';
+
+		function onScr(t){
+			var win = $(window);
+			
+			var viewport = {
+					top : win.scrollTop(),
+					left : win.scrollLeft()
+			};
+			viewport.right = viewport.left + win.width();
+			viewport.bottom = viewport.top + win.height();
+			
+			var bounds = $(t).offset();
+			bounds.right = bounds.left + $(t).outerWidth();
+			bounds.bottom = bounds.top + $(t).outerHeight();
+    	bounds.top = bounds.top + $(t).outerHeight()*0.5;
+			
+			return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+			
+		};
+	</script>
+
+	<!-- 1st Display Basic Details-->
 	<div class="listing-detail-section family" id="listing-detail-section-basic_details">
 		<h2 class="page-header">Basic Details</h2>
 		<div class="row"> 
 			<div class="col-md-2 col-xs-6">
-				<div class="tp" id="tp1" data-toggle="tooltip" data-placement="top" title="Established">
+				<div class="tp" data-toggle="tooltip" data-placement="top" title="Established">
 					<svg class="icon">
 						<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-074"></use>'; ?>
 					</svg><span class="ename"><?php echo $estabalishment_year?></span>
@@ -224,14 +267,13 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 						echo $lowest_class ?><sup><?php echo getClass($lowest_class)?></sup> - <?php echo $highest_class?><sup><?php echo getClass($highest_class)?></sup></span>
 				</div>
 			</div>
-			<div class="col-md-2 col-xs-6">
+			<!--<div class="col-md-2 col-xs-6">
 				<div class="tp" data-toggle="tooltip" data-placement="top" title="Student Teacher Ratio">
 					<svg class="icon">
-						<!--<use xlink:href="./assets/svg/icons.svg#icon-142"></use>-->
 						<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-142"></use>'; ?>
 					</svg><span class="ename">15 : 1*</span>
 				</div>
-			</div>
+			</div>-->
 		</div>
 	</div>
 	<!-- 2nd Display About the School-->
@@ -241,14 +283,18 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				<div class="panel panel-default">
 					<div class="panel-heading" id="headingOne" role="tab">
-						<h4 class="panel-title"><a class="btn btn-default abc-ac-btn" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Curriculum<i class="fa fa-plus"></i></a></h4>
+						<h4 class="panel-title"><a id="clp1" class="btn btn-default abc-ac-btn" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Curriculum<i class="fa fa-plus"></i></a></h4>
 					</div>
-					<div class="panel-collapse collapse in" id="collapseOne" role="tabpanel" aria-labelledby="headingOne">
+					<div class="panel-collapse collapse" id="collapseOne" role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body">
 							<table class="table">
 								<tr>
 									<td>Instruction Medium</td>
-									<td><strong><?php echo $instruction_1?></strong>, <?php echo $instruction_2?>, <?php echo $instruction_3?></td>
+									<td><strong><?php echo $instruction_1?></strong><?php if(!empty($instruction_2)) echo ','; ?> <?php echo $instruction_2?><?php if(!empty($instruction_3)) echo ','; ?> <?php echo $instruction_3?></td>
+								</tr>
+								<tr>
+									<td>CCE Implemented</td>
+									<td><?php echo $cce_system?></td>
 								</tr>
 								<tr>
 									<td>Pre-Primary Available</td>
@@ -258,7 +304,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 									<td>Teaching Hours</td>
 									<td><?php echo $schhrschild_upr?> hours</td>
 								</tr>
-								<tr>
+								<!--<tr>
 									<td>School Timing*</td>
 									<td> </td>
 								</tr>
@@ -269,7 +315,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 								<tr>
 									<td>&nbsp&nbsp- Sat-Sun</td>
 									<td>Closed</td>
-								</tr>
+								</tr>-->
 							</table>
 						</div>
 					</div>
@@ -318,7 +364,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 								</tr>
 								<tr>
 									<td>Students Strength </td>
-									<td><?php echo $stu_strength?></td>
+									<td><?php echo $stu_strength ?></td>
 								</tr>
 							</table>
 						</div>
@@ -327,127 +373,162 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 			</div>
 		</div>
 	</div>
-	<!-- General Details -->
-	<div class="listing-detail-section family sec0" id="listing-detail-section-general_details">
-		<h2 class="page-header">General Details  </h2>
+	<!-- Important Ratios -->
+	<div class="listing-detail-section family sec0" id="listing-detail-section-important_ratios">
+		<h2 class="page-header">Important Ratios</h2>
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-4" id="TchStuRatioDiv">
 				<canvas id="TchStuRatio"></canvas>
 				<script>
-					var ctx = document.getElementById("TchStuRatio").getContext('2d');
-					//Chart.defaults.global.defaultFontStyle = 'bold';
-					var myChart = new Chart(ctx, {
-					type: 'doughnut',
-					data: {
-					datasets: [{
-							data: [<?php echo $ratio_ts[0]?>, <?php echo $ratio_ts[1]?>],
-							backgroundColor: [
-							'rgba(75, 192, 192, 0.7)',
-							'rgba(153, 102, 255, 0.7)'
-					],
-					}],
-					labels: [
-							'Teacher',
-							'Student'
-					]
+					var TchStuRatioCtx = document.getElementById("TchStuRatio").getContext('2d');
+					
+					var TchStuRatioData = {
+							type: 'doughnut',
+							data: {
+							datasets: [{
+								data: [<?php echo $ratio_ts[0] ?>, <?php echo $ratio_ts[1] ?>],
+								backgroundColor: [
+								'rgba(75, 192, 192, 0.7)',
+								'rgba(153, 102, 255, 0.7)'
+						],
+						}],
+						labels: [
+								'Teacher',
+								'Student'
+						]
 					},
 					options: {
 						legend: {
 								position: 'bottom',
 								labels: {
-									usePointStyle: true,
-									fontSize: 11,
-									//fontStyle: 'normal'
+								usePointStyle: true,
+								fontSize: 11,
+								//fontStyle: 'normal'
 							}
 						},
 						title: {
 							display: true,
 							text: 'Student Teacher Ratio'
+						},
+						animation: {
+							duration: 1200,
 						}
 					}
-					});
+					};
+					
+					var TchStuRatioOnScrTimer = setInterval(function() {
+						if(onScr($('#TchStuRatioDiv'))) {
+							new Chart(TchStuRatioCtx, TchStuRatioData);
+							clearInterval(TchStuRatioOnScrTimer);
+						}
+					},500);
+
 				</script>
 				<hr class="divider"/>
 			</div>
-			<div class="col-md-4">
+
+			<div class="col-md-4" id="BGRatioDiv">
 				<canvas id="BGRatio"></canvas>
 				<script>
-					var ctx = document.getElementById("BGRatio").getContext('2d');
-					//Chart.defaults.global.defaultFontStyle = 'bold';
-					var myChart = new Chart(ctx, {
-					type: 'doughnut',
-					data: {
-					datasets: [{
-							data: [<?php echo $ratio_bg[0]?>, <?php echo $ratio_bg[1]?>],
-							backgroundColor: [
-							'rgba(64, 129, 255, 0.7)',
-							'rgba(255, 64, 129, 0.7)'
-					],
-					}],
-					labels: [
-							'Boys',
-							'Girls'
-					]
-					},
-					options: {
-						legend: {
-								position: 'bottom',
-								labels: {
-									usePointStyle: true,
-									fontSize: 11,
-									//fontStyle: 'normal' 
+					var BGRatioCtx = document.getElementById("BGRatio").getContext('2d');
+					
+					var BGRatioData = {
+							type: 'doughnut',
+							data: {
+							datasets: [{
+									data: [<?php echo $ratio_bg[0]?>, <?php echo $ratio_bg[1]?>],
+									backgroundColor: [
+									'rgba(64, 129, 255, 0.7)',
+									'rgba(255, 64, 129, 0.7)'
+							],
+							}],
+							labels: [
+									'Boys',
+									'Girls'
+							]
+							},
+							options: {
+								legend: {
+										position: 'bottom',
+										labels: {
+											usePointStyle: true,
+											fontSize: 11,
+											//fontStyle: 'normal' 
+									}
+								},
+								title: {
+									display: true,
+									text: 'Boys to Girls Ratio'
+								},
+								animation: {
+									duration: 1400,
+								}
 							}
-						},
-						title: {
-							display: true,
-							text: 'Boys to Girls Ratio'
+						};
+						
+					var BGRatioOnScrTimer = setInterval(function() {
+						if(onScr($('#BGRatioDiv'))) {
+							new Chart(BGRatioCtx, BGRatioData);
+							clearInterval(BGRatioOnScrTimer);
 						}
-					}
-					});
+					},500);		
+
 				</script>
 				<hr class="divider"/>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-4" id="StuRatioDiv">
 				<canvas id="StuRatio"></canvas>
 				<script>
-					var ctx = document.getElementById("StuRatio").getContext('2d');
-					var myChart = new Chart(ctx, {
-					type: 'doughnut',
-					data: {
-					datasets: [{
-							data: [<?php echo $primary_stu?>, <?php echo $sec_stu?>, <?php echo $hrsec_stu?>],
-							backgroundColor: [
-							'rgba(198,255,0,0.7)',
-							'rgba(118,255,3,0.7)',
-							'rgba(0,230,118,0.7)'
-					],
-					}],
-					labels: [
-							'Primary',
-							'Secondary',
-							'Hr. Secondary'
-					]
-					},
-					options: {
-						legend: {
-							position: 'bottom',
-							labels: {
-								usePointStyle: true,
-								fontSize: 11,
-								//fontStyle: 'normal' 
+					var StuRatioCtx = document.getElementById("StuRatio").getContext('2d');
+					
+					var StuRatioData = {
+							type: 'doughnut',
+							data: {
+							datasets: [{
+									data: [<?php echo $primary_stu?>, <?php echo $sec_stu?>, <?php echo $hrsec_stu?>],
+									backgroundColor: [
+									'rgba(198,255,0,0.7)',
+									'rgba(118,255,3,0.7)',
+									'rgba(0,230,118,0.7)'
+							],
+							}],
+							labels: [
+									'Primary',
+									'Secondary',
+									'Hr. Secondary'
+							]
+							},
+							options: {
+								legend: {
+									position: 'bottom',
+									labels: {
+										usePointStyle: true,
+										fontSize: 10,
+										//fontStyle: 'normal' 
+									}
+								},
+								title: {
+									display: true,
+									text: 'Students Distribution'
+								},
+								animation: {
+									duration: 1600,
+								}
 							}
-						},
-						title: {
-							display: true,
-							text: 'Students Distribution'
+						};
+
+					var StuRatioOnScrTimer = setInterval(function() {
+						if(onScr($('#StuRatioDiv'))) {
+							new Chart(StuRatioCtx, StuRatioData);
+							clearInterval(StuRatioOnScrTimer);
 						}
-					}
-					});
+					},500);
+
 				</script>
 			</div>
 		</div>
 	</div>
-	<!-- Teacher's Details -->
+	<!-- Teachers Details -->
 	<div class="listing-detail-section family sec0" id="listing-detail-section-teacher_details">
 		<h2 class="page-header">Teacher's Details</h2>
 		<div class="card-container">
@@ -460,13 +541,17 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 					<?php foreach($tch_dtls as $t): ?>
 						<span class="card">
 							<span class="inf name"><strong><?php echo $t['tchname']?></strong></span>
-							<span class="brk gnrl">General</span>
+							<hr class="tbrk" style="width: 7rem"/>
+							<span class="inf">Subject : <strong><?php echo $t['main_taught1']?></strong></span>
+							<!-- <span class="brk">Qualifications</span> -->
+							<hr class="tbrk" />
+							<span class="inf">Academic : <strong><?php echo $t['qual_acad']?></strong></span>
+							<span class="inf">Professional : <strong><?php echo $t['qual_prof']?></strong></span>
+							<!-- <span class="brk gnrl">General</span> -->
+							<hr class="tbrk" />
 							<span class="inf">Gender : <strong><?php echo $t['sex']?></strong></span>
 							<span class="inf">Year of Joining : <strong><?php echo $t['yoj']?></strong></span>
 							<span class="inf">Status : <strong><?php echo $t['post_status']?></strong></span>
-							<span class="brk">Qualifications</span>
-							<span class="inf">Academic : <strong><?php echo $t['qual_acad']?></strong></span>
-							<span class="inf">Professional : <strong><?php echo $t['qual_prof']?></strong></span>
 						</span>
 					<?php endforeach; ?>
 				<?php endif; ?>
@@ -475,100 +560,91 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 	</div>
 	<!-- Student Results-->
 	<div class="listing-detail-section family sec0" id="listing-detail-section-results">
-		<h2 class="page-header">Results</h2>
-		<canvas id="Results"></canvas>
-		<script type="text/javascript">
-			var ctx = document.getElementById("Results").getContext('2d');
+		<h2 class="page-header" id="ResultDiv">Result</h2>
+		<canvas id="Result"></canvas>
+		<script>
+			var ResultCtx = document.getElementById("Result").getContext('2d');
 			Chart.defaults.global.defaultFontStyle = 'bold';
-			var myChart = new Chart(ctx, {
-			type: 'bar',
-			data: {
-			labels: ["Class 5th", "Class 8th", "Class 10th", "Class 12th"],
-			datasets: [{
-			label: 'Total Students',
-			data: [<?php echo $result_primary[total_8] + $result_primary[total_9]?>, <?php echo $result_secondary[total_4] + $result_secondary[total_5]?>, <?php echo $result_secondary[total_8] + $result_secondary[total_9]?>, <?php echo $result_secondary[total_12] + $result_secondary[total_13]?>],
-			backgroundColor: [
-			'rgba(54, 162, 235, 0.2)',
-			'rgba(54, 162, 235, 0.2)',
-			'rgba(54, 162, 235, 0.2)',
-			'rgba(54, 162, 235, 0.2)',
-			],
-			borderColor: [
-			'rgba(54, 162, 235, 1)',
-			'rgba(54, 162, 235, 1)',
-			'rgba(54, 162, 235, 1)',
-			'rgba(54, 162, 235, 1)',
-			],
-			borderWidth: 1,
-			},
-			
-			{
-			label: 'Passed',
-			data: [<?php echo $result_primary[total_8] + $result_primary[total_9] - $result_primary[fail_8] - $result_primary[fail_9]?>, <?php echo $result_secondary[total_4] + $result_secondary[total_5] - $result_secondary[fail_4] - $result_secondary[fail_5]?>, <?php echo $result_secondary[total_8] + $result_secondary[total_9] - $result_secondary[fail_8] - $result_secondary[fail_9]?>, <?php echo $result_secondary[total_12] + $result_secondary[total_13] - $result_secondary[fail_12] - $result_secondary[fail_13]?>],
-			backgroundColor: [
-			'rgba(75, 192, 192, 0.2)',
-			'rgba(75, 192, 192, 0.2)',
-			'rgba(75, 192, 192, 0.2)',
-			'rgba(75, 192, 192, 0.2)',
-			],
-			borderColor: [
-			'rgba(75, 192, 192, 1)',
-			'rgba(75, 192, 192, 1)',
-			'rgba(75, 192, 192, 1)',
-			'rgba(75, 192, 192, 1)',
-			],
-			borderWidth: 1
-			},
-			
-			// {
-			// label: 'More than 60%',
-			// data: [<?php echo $result_primary[above60_8] + $result_primary[above60_9]?>, <?php echo $result_secondary[above60_4] + $result_secondary[above60_5]?>, <?php echo $result_secondary[above60_8] + $result_secondary[above60_9]?>, <?php echo $result_secondary[above60_12] + $result_secondary[above60_13]?>],
-			// backgroundColor: [
-			// 'rgba(255, 206, 86, 0.2)',
-			// 'rgba(255, 206, 86, 0.2)',
-			// 'rgba(255, 206, 86, 0.2)',
-			// 'rgba(255, 206, 86, 0.2)',
-			// ],
-			// borderColor: [
-			// 'rgba(255, 206, 86, 1)',
-			// 'rgba(255, 206, 86, 1)',
-			// 'rgba(255, 206, 86, 1)',
-			// 'rgba(255, 206, 86, 1)',
-			// ],
-			// borderWidth: 1
-			// },
-			
-			{
-			label: 'Fail',
-			data: [<?php echo $result_primary[fail_8] + $result_primary[fail_9]?>, <?php echo $result_secondary[fail_4] + $result_secondary[fail_5]?>, <?php echo $result_secondary[fail_8] + $result_secondary[fail_9]?>, <?php echo $result_secondary[fail_12] + $result_secondary[fail_13]?>],
-			backgroundColor: [
-			'rgba(255, 99, 132, 0.2)',
-			'rgba(255, 99, 132, 0.2)',
-			'rgba(255, 99, 132, 0.2)',
-			'rgba(255, 99, 132, 0.2)',
-			],
-			borderColor: [
-			'rgba(255, 99, 132, 1)',
-			'rgba(255, 99, 132, 1)',
-			'rgba(255, 99, 132, 1)',
-			'rgba(255, 99, 132, 1)',
-			],
-			borderWidth: 1
-			}
-			
-			]
-			},
-			options: {
-			scales: {
-			yAxes: [{
-			ticks: {
-			fontStyle: 'bold',
-			beginAtZero:true
-			}
-			}]
-			}
-			}
-			});
+			var ResultData = {
+					type: 'bar',
+					data: {
+					labels: ["Class 5th", "Class 8th", "Class 10th", "Class 12th"],
+					datasets: [{
+					label: 'Total Students',
+					data: [<?php echo $result_primary[total_8] + $result_primary[total_9]?>, <?php echo $result_secondary[total_4] + $result_secondary[total_5]?>, <?php echo $result_secondary[total_8] + $result_secondary[total_9]?>, <?php echo $result_secondary[total_12] + $result_secondary[total_13]?>],
+					backgroundColor: [
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					],
+					borderColor: [
+					'rgba(54, 162, 235, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(54, 162, 235, 1)',
+					],
+					borderWidth: 1,
+					},
+					
+					{
+					label: 'Passed',
+					data: [<?php echo $result_primary[total_8] + $result_primary[total_9] - $result_primary[fail_8] - $result_primary[fail_9]?>, <?php echo $result_secondary[total_4] + $result_secondary[total_5] - $result_secondary[fail_4] - $result_secondary[fail_5]?>, <?php echo $result_secondary[total_8] + $result_secondary[total_9] - $result_secondary[fail_8] - $result_secondary[fail_9]?>, <?php echo $result_secondary[total_12] + $result_secondary[total_13] - $result_secondary[fail_12] - $result_secondary[fail_13]?>],
+					backgroundColor: [
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					],
+					borderColor: [
+					'rgba(75, 192, 192, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(75, 192, 192, 1)',
+					],
+					borderWidth: 1
+					},
+					
+					{
+					label: 'Fail',
+					data: [<?php echo $result_primary[fail_8] + $result_primary[fail_9]?>, <?php echo $result_secondary[fail_4] + $result_secondary[fail_5]?>, <?php echo $result_secondary[fail_8] + $result_secondary[fail_9]?>, <?php echo $result_secondary[fail_12] + $result_secondary[fail_13]?>],
+					backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(255, 99, 132, 0.2)',
+					],
+					borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(255, 99, 132, 1)',
+					'rgba(255, 99, 132, 1)',
+					'rgba(255, 99, 132, 1)',
+					],
+					borderWidth: 1
+					}
+					
+					]
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									fontStyle: 'bold',
+									beginAtZero:true
+								}
+							}]
+						},
+						animation: {
+							duration: 2500,
+						}
+					}
+				};
+			var ResultOnScrTimer = setInterval(function() {
+						if(onScr($('#Result'))) {
+							new Chart(ResultCtx, ResultData);
+							clearInterval(ResultOnScrTimer);
+						}
+				},200);
 			
 		</script>
 	</div>
@@ -583,7 +659,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 						<li><strong class="key">Parents Involved</strong><span class="value"><?php echo $smc_parents ?></span></li>
 					</ul>
 				</div>
-				<!-- /.col-*-->
 				<div class="col-md-6">
 					<ul>
 						<li><strong class="key">Local Authorities</strong><span class="value"><?php echo $smc_local ?></span></li>
@@ -655,27 +730,28 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 	</div>
 	<!-- 4th Display -- Contact-->
 	<div class="listing-detail-section sec0" id="listing-detail-section-contact_us">
-		<h2 class="page-header">Contact*</h2>
+		<h2 class="page-header">Contact</h2>
 		<div class="listing-detail-contact">
 			<div class="row">
 				<div class="col-md-6">
 					<ul>
-						<li class="email"><strong class="key">Person</strong><span class="value">Mr. xyz</span></li>
+						<li><strong class="key">Person</strong><span class="value"><?php echo $cnt_person; ?></span></li>
 					</ul>
 					<ul>
-						<li class="email"><strong class="key">E-mail</strong><span class="value"><a href="mailto:sample@example.com">sample@example.com</a></span></li>
-						<li class="website"><strong class="key">Website</strong><span class="value"><a href="http://example.com" target="_blank">http://example.com</a></span></li>
-						<li class="phone"><strong class="key">Phone</strong><span class="value"><a href="tel:+919898989898">+91 9898989898 </a><br/><a href="tel:+919876543210">+91 9876543210</a><br/><a href="tel:01112012045">011 120 120 45</a></span></li>
+						<li class="email"><strong class="key">E-mail</strong><span class="value"><a href="mailto:<?php echo $cnt_email; ?>"><?php echo $cnt_email; ?></a></span></li>
+						<li class="website"><strong class="key">Website</strong><span class="value"><a href="<?php echo $cnt_website; ?>" target="_blank"><?php echo $cnt_website; ?></a></span></li>
+						<li class="phone"><strong class="key">Phone</strong><span class="value"><a href="tel:<?php echo $cnt_phone; ?>"><?php echo $cnt_phone; ?> </a><br/><a href="tel:<?php echo $cnt_phone2; ?>"><?php echo $cnt_phone2; ?></a><br/><a href="tel:<?php echo $cnt_phone3; ?>"><?php echo $cnt_phone3; ?></a></span></li>
 					</ul>
 				</div>
-				<!-- /.col-*-->
 				<div class="col-md-6">
 					<ul>
-						<li class="address"><strong class="key">Address</strong><span class="value">Address<br/>locality<br/>pincode</span></li>
+						<li class="address"><strong class="key">Address</strong><span class="value"><?php echo $cnt_address; ?><br/><?php echo $cnt_locality; ?><br/><?php echo $cnt_city; ?></span></li>
+						<li><strong class="key">Pincode</strong><span class="value"><?php echo $cnt_pincode; ?></span></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 	<?php endif; ?>
+<?php endif; ?>
 <?php do_action( 'inventor_after_listing_detail_school_aschool' ); ?>

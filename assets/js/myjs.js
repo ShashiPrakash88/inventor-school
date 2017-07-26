@@ -1,4 +1,16 @@
 $(function() {
+  
+  
+  // var config = {
+  //       easing: 'hustle',
+  //       vFactor: 0.25,
+  //       mobile: true,
+  //       enter: 'bottom',
+  //       reset: true
+  //     }
+  // window.sr = new scrollReveal(config);
+  // // sr.reveal('#tp1');
+
   //for controls of teacher's details
   $('.card-container > .prev').click(function() {
     var pos = $('.card-container > .cards').scrollLeft();
@@ -23,7 +35,6 @@ $(function() {
 
   j=0; flg=0;
   function animateCtrl() {
-    console.log(j);
     animate(j);
     j+=1;
 
@@ -46,6 +57,7 @@ $(function() {
     var bounds = this.offset();
     bounds.right = bounds.left + this.outerWidth();
     bounds.bottom = bounds.top + this.outerHeight();
+    bounds.top = bounds.top + this.outerHeight();
     
     return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
     
@@ -60,7 +72,12 @@ $(function() {
     startAni();
   },100);
   
-
+  var clpOnScrTimer = setInterval(function() {
+    if($('#clp1').isOnScreen()) {
+      $('#clp1').click();
+      clearInterval(clpOnScrTimer);
+    }
+  },2000);
   // //toggling funding and grants
 
   // $('.abc_title').mouseover(function() {
@@ -95,15 +112,4 @@ $(function() {
     }
   },10);
   
-
-  // Changing the defaults
-  
-  // window.sr = ScrollReveal();
-
-  // // Customizing a reveal set
-  // sr.reveal('.tp',{
-  //   duartion: 1000,
-  //   origin: 'bottom',
-  // });
-  // $('.tp').removeAttr('data-sr-id').removeAttr('style');
 });

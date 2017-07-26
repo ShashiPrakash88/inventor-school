@@ -2,6 +2,7 @@
 {
 	display:none;
 }
+
 .family {
 	font-family: "Roboto", Arial, sans-serif !important;
 }
@@ -37,6 +38,9 @@
     width: 20vw;
     height: 20vw;
     fill: #1f97e9; }
+.tp .icon {
+  filter: drop-shadow( 2px 2px 1px rgba(0,0,0,0.2) );
+}
 
 .tooltip {
   top: -25px !important; }
@@ -141,8 +145,16 @@
 
 .cards {
   white-space: nowrap;
-  overflow-x: hidden;
+  overflow-x: auto;
   padding: .5rem; }
+.cards::-webkit-scrollbar {
+  height: 7px }
+.cards::-webkit-scrollbar-track {
+  background: rgba(242, 242, 242, 0.8);
+  border-radius: 5px; }
+.cards::-webkit-scrollbar-thumb {
+  background: rgba(217, 217, 217,0.8);
+  border-radius: 5px; }
 
 .card {
   background: white;
@@ -154,7 +166,7 @@
   height: 15.5rem !important;
   display: inline-block;
   margin: .5rem;
-  overflow: auto;
+  overflow: hidden;
 	transition: all 500ms ease-in-out;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
   .card .inf {
@@ -186,8 +198,16 @@
     color: black; }
   .card:hover {
     z-index: 1;
+    overflow: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); }
-
+  .card::-webkit-scrollbar {
+    width: 7px }
+  .card::-webkit-scrollbar-track {
+    background: rgba(242, 242, 242, 0.8);
+    border-radius: 5px; }
+  .card::-webkit-scrollbar-thumb {
+    background: rgba(217, 217, 217,0.5);
+    border-radius: 5px; }
 .ctrls {
   position: absolute;
   top: 50%;
@@ -219,6 +239,11 @@
 
 .next {
   right: -1rem; }
+
+.tbrk {
+  margin: .5rem auto; 
+  width: 3rem;
+  border-color: rgba(0, 0, 0, 0.1) }
 
 .divider {
   display: block; }
@@ -285,7 +310,7 @@
   .cards {
     overflow-x: hidden; }
     .cards:hover {
-      overflow-x: hidden; }
+      overflow-x: auto; }
   .card {
     overflow: hidden; }
     .card:hover {
