@@ -147,7 +147,7 @@
 		        'options'           => array (
                      'Girls'   => __('Girls', 'cmb2'),
                      'Boys'     => __('Boys', 'cmb2'),
-					 'Co-educational'     => __('Co-Educational', 'cmb2')  )       
+					 'Co-Educational'     => __('Co-Educational', 'cmb2')  )       
 					 ));  }
 	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'type';
          if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) )
@@ -468,16 +468,6 @@
             'closed'        => true
            ) );
 // Fields for 8th metabox 
-	     $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'water';
-       	  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
-		  {  $details->add_field( array(
-                'name'       => __( 'Drinking water available', 'inventor-schools' ),
-                'id'         => $field_id,
-                'type'              => 'radio_inline',
-				'show_option_none'  => false,
-		        'options'           => array (
-                     'Yes'   => __('Yes', 'cmb2'), 'No'  => __('No', 'cmb2'), )
-				 ) ); }
 		  $field_id = INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'watertype';
 		  if ( apply_filters( 'inventor_metabox_field_enabled', true, $metabox_id, $field_id, $post_type ) ) 
 		  {  $details->add_field( array(

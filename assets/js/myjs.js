@@ -1,15 +1,25 @@
 $(function() {
   
-  
-  // var config = {
-  //       easing: 'hustle',
-  //       vFactor: 0.25,
-  //       mobile: true,
-  //       enter: 'bottom',
-  //       reset: true
-  //     }
-  // window.sr = new scrollReveal(config);
-  // // sr.reveal('#tp1');
+  //Rearranging metaboxes
+  function rearrange(element, before) {
+    var element_class = '.listing-detail-menu .'+element;
+    var before_class = '.listing-detail-menu .'+before;
+
+    var element_id = '#'+element;
+    var before_id = '#'+before;
+
+    $(element_id).insertBefore(before_id);
+    $(element_class).insertBefore(before_class);
+
+  }
+
+  rearrange('listing-detail-section-gallery','listing-detail-section-video');
+  rearrange('listing-detail-section-basic_details','listing-detail-section-description');
+
+  //$('.listing-detail-menu .listing-detail-section-basic_details').insertBefore('.listing-detail-menu .listing-detail-section-description');
+
+  //changing one review... to Reviews
+  $('.listing-detail-menu a[href=#listing-detail-section-reviews]').html('Reviews')
 
   //for controls of teacher's details
   $('.card-container > .prev').click(function() {

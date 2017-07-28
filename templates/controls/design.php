@@ -4,6 +4,7 @@
 /**
   * Including asset dependencies
 **/
+	wp_enqueue_style( 'inventor-schools-font', 'https://fonts.googleapis.com/css?family=Dosis:300');
  	wp_enqueue_style( 'inventor-schools-w3', plugins_url( 'inventor-schools/').'assets/styles/w3.css' );
 	wp_enqueue_style( 'inventor-schools-frontend',    plugins_url( 'inventor-schools/').'assets/styles/frontend.css');
 
@@ -11,7 +12,7 @@
 	wp_enqueue_script( 'inventor-schools-myjs', 	plugins_url( 'inventor-schools/').'assets/js/myjs.js');
 
 	echo "<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js'></script>";
-
+	//<link href="https://fonts.googleapis.com/css?family=Dosis:300" rel="stylesheet">
  // 1st display  The Basic Details
  $school_code            = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'schcode', true ); 
  $estabalishment_year    = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'year',    true ); 
@@ -174,7 +175,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 	$hrsec_stu=$hrsec_b + $hrsec_g;
 	
 	$stu_strength =$ppstudent + $total_boys + $total_girls;
-
+	
 //ratio calculations
 	$ratio_bg=explode(":",ratio($total_boys, $total_girls));
 	$ratio_ts=explode(":",ratio($total_teachers, $stu_strength));	
@@ -267,13 +268,13 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 						echo $lowest_class ?><sup><?php echo getClass($lowest_class)?></sup> - <?php echo $highest_class?><sup><?php echo getClass($highest_class)?></sup></span>
 				</div>
 			</div>
-			<!--<div class="col-md-2 col-xs-6">
-				<div class="tp" data-toggle="tooltip" data-placement="top" title="Student Teacher Ratio">
+			<div class="col-md-2 col-xs-6">
+				<div class="tp" data-toggle="tooltip" data-placement="top" title="Student Strength">
 					<svg class="icon">
-						<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-142"></use>'; ?>
-					</svg><span class="ename">15 : 1*</span>
+						<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-083"></use>'; ?>
+					</svg><span class="ename"><?php echo $stu_strength?></span>
 				</div>
-			</div>-->
+			</div>
 		</div>
 	</div>
 	<!-- 2nd Display About the School-->
@@ -328,6 +329,10 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 						<div class="panel-body">
 							<table class="table">
 								<tr>
+									<td>School Code</td>
+									<td><?php echo $school_code?></td>
+								</tr>
+								<tr>
 									<td>Status of Building</td>
 									<td><?php echo $school_building?></td>
 								</tr>
@@ -345,7 +350,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading" id="headingThree" role="tab">
-						<h4 class="panel-title"><a class="btn btn-default abc-ac-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Teachers and Students<i class="fa fa-plus"></i></a></h4>
+						<h4 class="panel-title"><a class="btn btn-default abc-ac-btn collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Teachers<i class="fa fa-plus"></i></a></h4>
 					</div>
 					<div class="panel-collapse collapse" id="collapseThree" role="tabpanel" aria-labelledby="headingThree">
 						<div class="panel-body">
@@ -358,13 +363,9 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 									<td>&nbsp&nbsp- Graduated</td>
 									<td><?php echo $graduate?></td>
 								</tr>
-								<tr>
+								<tr class="chld">
 									<td>&nbsp&nbsp- Post-Graduated</td>
 									<td><?php echo $professional?></td>
-								</tr>
-								<tr>
-									<td>Students Strength </td>
-									<td><?php echo $stu_strength ?></td>
 								</tr>
 							</table>
 						</div>
@@ -503,8 +504,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 									position: 'bottom',
 									labels: {
 										usePointStyle: true,
-										fontSize: 10,
-										//fontStyle: 'normal' 
+										fontSize: 10.5, 
 									}
 								},
 								title: {
