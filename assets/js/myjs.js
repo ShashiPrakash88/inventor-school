@@ -21,6 +21,10 @@ $(function() {
   //changing one review... to Reviews
   $('.listing-detail-menu a[href=#listing-detail-section-reviews]').html('Reviews')
 
+  //Removing extra contact, opening hours
+  $('.listing-detail-section-contact').css('display','none')
+  $('.listing-detail-section-opening-hours').css('display','none')
+
   //for controls of teacher's details
   $('.card-container > .prev').click(function() {
     var pos = $('.card-container > .cards').scrollLeft();

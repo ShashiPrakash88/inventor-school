@@ -431,27 +431,27 @@
          ) ); 
          $adrs_metabox->add_field( array(
             'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'city',
-            'name'       => __( 'City Name','inventor-schools'),
+            'name'       => __( 'City','inventor-schools'),
             'type'       => 'text_medium',
          ) ); 
 		  $adrs_metabox->add_field( array(
             'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'block',
-            'name'       => __( 'Block Name','inventor-schools'),
+            'name'       => __( 'Block','inventor-schools'),
             'type'       => 'text_medium'
          ) ); 
 		  $adrs_metabox->add_field( array(
             'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'cluster',
-            'name'       => __( 'Cluster Name','inventor-schools'),
+            'name'       => __( 'Cluster','inventor-schools'),
             'type'       => 'text_medium'
          ) ); 
 		  $adrs_metabox->add_field( array(
             'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'locality',
-            'name'       => __( 'Locality Name','inventor-schools'),
+            'name'       => __( 'Locality','inventor-schools'),
             'type'       => 'text_medium'
          ) );
          $adrs_metabox->add_field( array(
             'id'         => INVENTOR_LISTING_PREFIX . INVENTOR_SCHOOL_PREFIX . 'state',
-            'name'       => __( 'State Name','inventor-schools'),
+            'name'       => __( 'State','inventor-schools'),
             'type'       => 'text_medium'
          ) );  
 

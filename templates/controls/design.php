@@ -105,7 +105,7 @@
 	$cnt_phone = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'phone' ,  true ); 
 	$cnt_phone2 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'phone2' ,  true );
 	$cnt_phone3 = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'phone3' ,  true );
-	$cnt_address = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'title' ,  true );
+	$cnt_address = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . 'address' ,  true );
 	$cnt_locality = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . INVENTOR_SCHOOL_PREFIX . 'locality' ,  true );
 	$cnt_city = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . INVENTOR_SCHOOL_PREFIX . 'city' ,  true );
 	$cnt_pincode = get_post_meta( get_the_ID(), INVENTOR_LISTING_PREFIX  . INVENTOR_SCHOOL_PREFIX . 'pin' ,  true );
@@ -376,7 +376,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 	</div>
 	<!-- Important Ratios -->
 	<div class="listing-detail-section family sec0" id="listing-detail-section-important_ratios">
-		<h2 class="page-header">Important Ratios</h2>
+		<h2 class="page-header">Distributions</h2>
 		<div class="row">
 			<div class="col-md-4" id="TchStuRatioDiv">
 				<canvas id="TchStuRatio"></canvas>

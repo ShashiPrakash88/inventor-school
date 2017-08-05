@@ -1,6 +1,10 @@
-#listing-detail-section-attributes
+#listing-detail-section-attributes, #listing-detail-section-contact, #listing-detail-section-opening-hours
 {
-	display:none;
+	display:none !important;
+}
+
+#listing_details-2 {
+  font-size: 15px;
 }
 
 html {
@@ -8,11 +12,11 @@ html {
 }
 
 .listing-detail-menu > .container {
-  width: 92vw;
+  /*width: 92vw;*/
 }
 
 .listing-detail-menu > .container ul li{
-  margin-right: 12px;
+  margin-right: 16px;
 }
 
 .listing-detail-menu > .container ul li :after{
@@ -20,7 +24,7 @@ html {
   width: 1px;
   height: 10px;
   position: absolute;
-  right: -6px;
+  right: -8px;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
@@ -28,15 +32,12 @@ html {
   background: rgba(255, 255, 255, 0.3);
 }
 
-.listing-detail-menu > .container ul li:last-child :after {
-  content: none;
+.listing-detail-menu > .container ul li:last-child {
+  margin-right: 0px;
 }
 
-.listing-detail-description-wrapper p::first-letter {
-  font-size: 180%;
-  font-family: "verdana", Arial, sans-serif;
-  text-transform: capitalize;
-  color: #bb2a2a;
+.listing-detail-menu > .container ul li:last-child :after {
+  content: none;
 }
 
 .family {
