@@ -1,46 +1,52 @@
-$(function() {
+jQuery(function() {
   
   //Rearranging metaboxes
-  function rearrange(element, before) {
+  function rearrange(element, before, ch) {
     var element_class = '.listing-detail-menu .'+element;
     var before_class = '.listing-detail-menu .'+before;
 
     var element_id = '#'+element;
     var before_id = '#'+before;
 
-    $(element_id).insertBefore(before_id);
-    $(element_class).insertBefore(before_class);
-
+    if(ch=='before') {
+      jQuery(element_id).insertBefore(before_id);
+      jQuery(element_class).insertBefore(before_class);
+    }
+    else {
+      jQuery(element_id).insertAfter(before_id);
+      jQuery(element_class).insertAfter(before_class);
+    }
+    
   }
 
-  rearrange('listing-detail-section-gallery','listing-detail-section-video');
-  rearrange('listing-detail-section-basic_details','listing-detail-section-description');
+  rearrange('listing-detail-section-gallery','listing-detail-section-contact_us','after');
+  rearrange('listing-detail-section-basic_details','listing-detail-section-description','before');
 
-  //$('.listing-detail-menu .listing-detail-section-basic_details').insertBefore('.listing-detail-menu .listing-detail-section-description');
+  //jQuery('.listing-detail-menu .listing-detail-section-basic_details').insertBefore('.listing-detail-menu .listing-detail-section-description');
 
   //changing one review... to Reviews
-  $('.listing-detail-menu a[href=#listing-detail-section-reviews]').html('Reviews')
+  jQuery('.listing-detail-menu a[href=#listing-detail-section-reviews]').html('Reviews')
 
   //Removing extra contact, opening hours
-  $('.listing-detail-section-contact').css('display','none')
-  $('.listing-detail-section-opening-hours').css('display','none')
+  jQuery('.listing-detail-section-contact').css('display','none')
+  jQuery('.listing-detail-section-opening-hours').css('display','none')
 
   //for controls of teacher's details
-  $('.card-container > .prev').click(function() {
-    var pos = $('.card-container > .cards').scrollLeft();
-    $('.card-container > .cards').animate({scrollLeft : pos-200},300);
+  jQuery('.card-container > .prev').click(function() {
+    var pos = jQuery('.card-container > .cards').scrollLeft();
+    jQuery('.card-container > .cards').animate({scrollLeft : pos-200},300);
   });
-  $('.card-container > .next').click(function() {
-    var pos = $('.card-container > .cards').scrollLeft();
-    $('.card-container > .cards').animate({scrollLeft : pos+200},300);
+  jQuery('.card-container > .next').click(function() {
+    var pos = jQuery('.card-container > .cards').scrollLeft();
+    jQuery('.card-container > .cards').animate({scrollLeft : pos+200},300);
   });
 
   //for animating basic details
   function animate(i) {
-    $('.tp').eq(i).tooltip('show');
+    jQuery('.tp').eq(i).tooltip('show');
 
     setTimeout(function() {
-      $('.tp').eq(i).tooltip('hide');
+      jQuery('.tp').eq(i).tooltip('hide');
     },1000);
   }
   
@@ -57,9 +63,9 @@ $(function() {
   }
 
   //for checking element is on screen
-  $.fn.isOnScreen = function(){
+  jQuery.fn.isOnScreen = function(){
     
-    var win = $(window);
+    var win = jQuery(window);
     
     var viewport = {
         top : win.scrollTop(),
@@ -78,7 +84,7 @@ $(function() {
   };
 
   function startAni() {
-    if($('.tp').isOnScreen())
+    if(jQuery('.tp').isOnScreen())
       animateCtrl();
   }
 
@@ -87,42 +93,42 @@ $(function() {
   },100);
   
   var clpOnScrTimer = setInterval(function() {
-    if($('#clp1').isOnScreen()) {
-      $('#clp1').click();
+    if(jQuery('#clp1').isOnScreen()) {
+      jQuery('#clp1').click();
       clearInterval(clpOnScrTimer);
     }
   },2000);
   // //toggling funding and grants
 
-  // $('.abc_title').mouseover(function() {
-  //   $(this).children('.collapse').addClass('collapse_style');
+  // jQuery('.abc_title').mouseover(function() {
+  //   jQuery(this).children('.collapse').addClass('collapse_style');
   // });
-  // $('.abc_title').mouseout(function() {
-  //   $(this).children('.collapse').removeClass('collapse_style');
+  // jQuery('.abc_title').mouseout(function() {
+  //   jQuery(this).children('.collapse').removeClass('collapse_style');
   // });
 
-  // $(window).on('resize', function() {
-  //   if ($(window).width() >= 768) {
-  //     $('.abc_title').children('.collapse').addClass('in');
+  // jQuery(window).on('resize', function() {
+  //   if (jQuery(window).width() >= 768) {
+  //     jQuery('.abc_title').children('.collapse').addClass('in');
   //   }
   //   else {
-  //     $('.abc_title').children('.collapse').removeClass('in');
+  //     jQuery('.abc_title').children('.collapse').removeClass('in');
   //   }
   // });
 
-  // if($(window).width() >= 768) {
-  //     $('.abc_title').children('.collapse').addClass('in');
+  // if(jQuery(window).width() >= 768) {
+  //     jQuery('.abc_title').children('.collapse').addClass('in');
   //   }
   // else{
-  //     $('.abc_title').children('.collapse').removeClass('in');
+  //     jQuery('.abc_title').children('.collapse').removeClass('in');
   //   }
 
   setInterval(function(){
-    if( $('#accordion .panel-collapse').hasClass('in') ){
-      $('#accordion .panel-collapse.in').siblings('.panel-heading').find('i').removeClass('fa-plus').addClass('fa-minus');
+    if( jQuery('#accordion .panel-collapse').hasClass('in') ){
+      jQuery('#accordion .panel-collapse.in').siblings('.panel-heading').find('i').removeClass('fa-plus').addClass('fa-minus');
     }
     else{
-      $('#accordion .panel-collapse').siblings('.panel-heading').find('i').removeClass('fa-minus').addClass('fa-plus');
+      jQuery('#accordion .panel-collapse').siblings('.panel-heading').find('i').removeClass('fa-minus').addClass('fa-plus');
     }
   },10);
   

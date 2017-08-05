@@ -195,7 +195,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 		Chart.defaults.global.animation.easing = 'easeInOutExpo';
 
 		function onScr(t){
-			var win = $(window);
+			var win = jQuery(window);
 			
 			var viewport = {
 					top : win.scrollTop(),
@@ -204,10 +204,10 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 			viewport.right = viewport.left + win.width();
 			viewport.bottom = viewport.top + win.height();
 			
-			var bounds = $(t).offset();
-			bounds.right = bounds.left + $(t).outerWidth();
-			bounds.bottom = bounds.top + $(t).outerHeight();
-    	bounds.top = bounds.top + $(t).outerHeight()*0.5;
+			var bounds = jQuery(t).offset();
+			bounds.right = bounds.left + jQuery(t).outerWidth();
+			bounds.bottom = bounds.top + jQuery(t).outerHeight();
+    	bounds.top = bounds.top + jQuery(t).outerHeight()*0.5;
 			
 			return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
 			
@@ -418,7 +418,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 					};
 					
 					var TchStuRatioOnScrTimer = setInterval(function() {
-						if(onScr($('#TchStuRatioDiv'))) {
+						if(onScr(jQuery('#TchStuRatioDiv'))) {
 							new Chart(TchStuRatioCtx, TchStuRatioData);
 							clearInterval(TchStuRatioOnScrTimer);
 						}
@@ -468,7 +468,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 						};
 						
 					var BGRatioOnScrTimer = setInterval(function() {
-						if(onScr($('#BGRatioDiv'))) {
+						if(onScr(jQuery('#BGRatioDiv'))) {
 							new Chart(BGRatioCtx, BGRatioData);
 							clearInterval(BGRatioOnScrTimer);
 						}
@@ -518,7 +518,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 						};
 
 					var StuRatioOnScrTimer = setInterval(function() {
-						if(onScr($('#StuRatioDiv'))) {
+						if(onScr(jQuery('#StuRatioDiv'))) {
 							new Chart(StuRatioCtx, StuRatioData);
 							clearInterval(StuRatioOnScrTimer);
 						}
@@ -640,7 +640,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 					}
 				};
 			var ResultOnScrTimer = setInterval(function() {
-						if(onScr($('#Result'))) {
+						if(onScr(jQuery('#Result'))) {
 							new Chart(ResultCtx, ResultData);
 							clearInterval(ResultOnScrTimer);
 						}
@@ -708,15 +708,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 					</div>
 				</div>
 			<?php endif; ?>
-			<?php if($playground=='Yes'): ?>
-				<div class="col-md-2 col-xs-6">
-					<div class="fac">
-						<svg class="icon">
-							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-037"></use>'; ?>
-						</svg><span class="ename">Extra Curricular</span>
-					</div>
-				</div>
-			<?php endif; ?>
 			<?php if($buses=='Yes'): ?>
 				<div class="col-md-2 col-xs-6">
 					<div class="fac">
@@ -740,12 +731,12 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 					<ul>
 						<li class="email"><strong class="key">E-mail</strong><span class="value"><a href="mailto:<?php echo $cnt_email; ?>"><?php echo $cnt_email; ?></a></span></li>
 						<li class="website"><strong class="key">Website</strong><span class="value"><a href="<?php echo $cnt_website; ?>" target="_blank"><?php echo $cnt_website; ?></a></span></li>
-						<li class="phone"><strong class="key">Phone</strong><span class="value"><a href="tel:<?php echo $cnt_phone; ?>"><?php echo $cnt_phone; ?> </a><br/><a href="tel:<?php echo $cnt_phone2; ?>"><?php echo $cnt_phone2; ?></a><br/><a href="tel:<?php echo $cnt_phone3; ?>"><?php echo $cnt_phone3; ?></a></span></li>
+						<li class="phone"><strong class="key">Phone</strong><span class="value"><a href="tel:<?php echo $cnt_phone; ?>"><?php echo $cnt_phone; ?> </a><?php if(!empty($cnt_phone2)) echo '<br />' ?><a href="tel:<?php echo $cnt_phone2; ?>"><?php echo $cnt_phone2; ?></a><?php if(!empty($cnt_phone3)) echo '<br />' ?><a href="tel:<?php echo $cnt_phone3; ?>"><?php echo $cnt_phone3; ?></a></span></li>
 					</ul>
 				</div>
 				<div class="col-md-6">
 					<ul>
-						<li class="address"><strong class="key">Address</strong><span class="value"><?php echo $cnt_address; ?><br/><?php echo $cnt_locality; ?><br/><?php echo $cnt_city; ?></span></li>
+						<li class="address"><strong class="key">Address</strong><span class="value"><?php echo $cnt_address; ?><?php if(!empty($cnt_address)) echo '<br />' ?><?php echo $cnt_locality; ?><?php if(!empty($cnt_locality)) echo '<br />' ?><?php echo $cnt_city; ?></span></li>
 						<li><strong class="key">Pincode</strong><span class="value"><?php echo $cnt_pincode; ?></span></li>
 					</ul>
 				</div>
