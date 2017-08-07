@@ -4,7 +4,7 @@
 /**
   * Including asset dependencies
 **/
-	wp_enqueue_style( 'inventor-schools-font', 'https://fonts.googleapis.com/css?family=Dosis:300');
+	wp_enqueue_style( 'inventor-schools-font', 'https://fonts.googleapis.com/css?family=Saira:400');
  	wp_enqueue_style( 'inventor-schools-w3', plugins_url( 'inventor-schools/').'assets/styles/w3.css' );
 	wp_enqueue_style( 'inventor-schools-frontend',    plugins_url( 'inventor-schools/').'assets/styles/frontend.css');
 
@@ -488,8 +488,8 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 							datasets: [{
 									data: [<?php echo $primary_stu?>, <?php echo $sec_stu?>, <?php echo $hrsec_stu?>],
 									backgroundColor: [
-									'rgba(198,255,0,0.7)',
-									'rgba(118,255,3,0.7)',
+									'rgba(255,234,0,0.7)',
+									'rgba(107,233,0,0.7)',
 									'rgba(0,230,118,0.7)'
 							],
 							}],
@@ -676,7 +676,7 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 				<div class="col-md-2 col-xs-6">
 					<div class="fac">
 						<svg class="icon">
-							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-007"></use>'; ?>
+							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-116"></use>'; ?>
 						</svg><span class="ename">Library</span>
 					</div>
 				</div>
@@ -705,15 +705,6 @@ $total_teachers 		= $tec_m + $tec_f + $tch_nr + $ppteacher;
 						<svg class="icon">
 							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-175"></use>'; ?>
 						</svg><span class="ename">Playground</span>
-					</div>
-				</div>
-			<?php endif; ?>
-			<?php if($buses=='Yes'): ?>
-				<div class="col-md-2 col-xs-6">
-					<div class="fac">
-						<svg class="icon">
-							<?php echo '<use xlink:href="'.plugins_url( 'inventor-schools/').'assets/svg/icons.svg#icon-016"></use>'; ?>
-						</svg><span class="ename">Buses</span>
 					</div>
 				</div>
 			<?php endif; ?>

@@ -11,6 +11,14 @@ html {
   overflow: initial !important;
 }
 
+.page-header {
+  margin-bottom: 15px;
+}
+
+.listing-detail-section {
+  margin-bottom: 50px;
+}
+
 .listing-detail-menu > .container {
   /*width: 92vw;*/
 }
@@ -48,20 +56,20 @@ html {
   width: 30vw;
   position: relative;
   margin: 10px auto;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
   transition: all 300ms ease-in-out; }
   .tp .ename, .fac .ename {
     position: absolute;
     text-align: center;
-    width: 125%;
+    width: 130%;
     color: black;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-    font-size: 1.1rem;
-    letter-spacing: .5px;
+    font-size: 1rem;
+    /*letter-spacing: .5px;*/
     top: 100%;
-    font-weight: bold;
+    /*font-weight: bold;*/
     left: 50%;
-    font-family: 'Dosis', sans-serif;
+    font-family: 'Saira', sans-serif;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%); }
@@ -83,7 +91,7 @@ html {
 }
 
 .tooltip {
-  top: -25px !important; }
+  top: -18px !important; }
 
 .tooltip-inner {
   padding: .5rem 1rem;
@@ -171,7 +179,8 @@ html {
     font-size: 10vw; }
   .fac .ename {
     margin-top: .5rem;
-    font-weight: normal; }
+    font-weight: normal;
+    text-shadow: none; }
   .fac .icon {
     width: 12vw;
     height: 12vw;
@@ -189,7 +198,7 @@ html {
 .cards {
   white-space: nowrap;
   overflow-x: auto;
-  padding: .5rem; }
+  padding: 0px .5rem; }
 .cards::-webkit-scrollbar {
   height: 7px }
 .cards::-webkit-scrollbar-track {
@@ -300,8 +309,8 @@ html {
   .tp {
     height: 6vw;
     width: 6vw;
-    margin-top: 20px;
-    margin-bottom: 50px; }
+    margin-top: 10px;
+    margin-bottom: 10px; }
     .tp .fa {
       font-size: 3vw; }
     .tp .icon {
@@ -344,8 +353,8 @@ html {
     box-shadow: none;
     height: 4rem;
     width: 4rem;
-    margin-top: 1.5rem;
-    margin-bottom: 2rem; }
+    margin-top: 10px;
+    margin-bottom: 10px; }
     .fac:hover {
       box-shadow: none; }
     .fac .fa {
